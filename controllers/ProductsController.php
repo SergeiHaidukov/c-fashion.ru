@@ -115,8 +115,8 @@ class ProductsController extends Controller
                     
                     $mode = \Imagine\Image\ImageInterface::THUMBNAIL_INSET;
                     
-                    Image::thumbnail('@webroot/img/' .$fileName, 350, 350, $mode)
-                    ->save(Yii::getAlias('@webroot/img/thumbnail/' .$fileName), ['quality' => 80]);
+                    Image::thumbnail('@webroot/img/' .$fileName, 200, 200, $mode)
+                    ->save(Yii::getAlias('@webroot/img/thumbnail/' .$fileName), ['quality' => 80]);                                        
                     
                     $picturesmodel = new \app\models\Pictures();
                     $picprodmodel = new \app\models\PicturesProducts();
