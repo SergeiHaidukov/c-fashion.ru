@@ -24,7 +24,8 @@
                 </div>
                 <div class="col-xs-12">
                     <h4>Цена</h4>
-                    <p>...</p>
+                    <p>{{price}}</p>
+                    <md-slider flex min="1200" max="10600" step="100" ng-model="price" aria-label="red" id="red-slider" class="md-warn"></md-slider>                
                 </div>
                 <div class="col-xs-12">
                     <h4>Размеры</h4>
@@ -46,7 +47,7 @@
 
         </div>
         <div class="col-md-9 col-sm-9 productslist">
-            <div ng-repeat="p in products">
+            <div ng-repeat="p in products | filter:price">
                 <div class="col-md-3 col-sm-4 col-xs-6 singleproduct">
                     <div class="product-miniature">                            
                         <img src="/img/thumbnail/{{p.file_name}}" class="img-responsive img-rounded list-img-thumbnail">                            
@@ -57,4 +58,3 @@
         </div>
     </div>
 </div>
-    

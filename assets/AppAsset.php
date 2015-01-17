@@ -19,6 +19,7 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'css/site.css',
+        'js/angular-material.min.css',
     ];
     public $js = [
         'js/angular.min.js',
@@ -29,7 +30,11 @@ class AppAsset extends AssetBundle
         'js/controllers/CategoriesController.js',
         'js/services/CategoriesService.js',
         'js/angular-cookies.min.js',
-        'js/angular-route.min.js',
+        'js/angular-route.min.js',        
+        '//cdn.jsdelivr.net/hammerjs/2.0.4/hammer.min.js',
+        '//ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular-animate.min.js',
+        '//ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular-aria.min.js',
+        'js/angular-material.min.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

@@ -14,6 +14,8 @@ app.controller('ProductsController'
         
         //console.log($cookies.categories_filter);
         
+        $rootScope.price;
+        
         
         $rootScope.$on('products_filter:updated', function(event, data) {
             $rootScope.products = ProductsService.getAllMiniature();

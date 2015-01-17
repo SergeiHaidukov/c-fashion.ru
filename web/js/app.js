@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('cfashion',['ui.bootstrap','ngRoute', 'ngCookies']);
+var app = angular.module('cfashion',['ui.bootstrap','ngRoute', 'ngCookies', 'ngMaterial']);
 
 app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
     $routeProvider.when('/list', {

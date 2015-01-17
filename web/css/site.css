@@ -204,3 +204,7 @@ a.desc:after {
 .list-img-thumbnail{
     
 }
+
+.sliderdemoBasicUsage input[type="number"] {
+  text-align: center; }
+
