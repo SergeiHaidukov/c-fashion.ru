@@ -4,6 +4,7 @@ app.factory('ProductsService'
     ,['$http', '$rootScope', '$location'
     ,function($http, $rootScope, $location){
         var products = [];
+        //var products_price = [];//цена продуктов в отдельном массиве, для расчета минимальной и максимальной цены
         var products_filter = [];
         var categories = [];
         var categories_filter = [];
@@ -99,7 +100,7 @@ app.factory('ProductsService'
                     angular.forEach(categories_filter, function(cf){
                         if(parseInt(pf.id_category, 10) === parseInt(cf.id_category, 10)){
                             filtered_products.push(pf);
-                            console.log(pf);
+                            //console.log(pf);
                         }
                     });                
                 });
@@ -113,7 +114,7 @@ app.factory('ProductsService'
                     angular.forEach(sizes_filter, function(sf){
                         if(parseInt(fp.id_size, 10) === parseInt(sf.id_size, 10)){
                             filtered_products_tmp.push(fp);
-                            console.log(fp);
+                            //console.log(fp);
                         }
                     });                
                 });
@@ -128,7 +129,7 @@ app.factory('ProductsService'
                     angular.forEach(colors_filter, function(sf){
                         if(parseInt(fp.id_color, 10) === parseInt(sf.id_color, 10)){
                             filtered_products_tmp.push(fp);
-                            console.log(fp);
+                            //console.log(fp);
                         }
                     });                
                 });
@@ -136,7 +137,7 @@ app.factory('ProductsService'
             }
             else {}
             
-            console.log(filtered_products);
+            //console.log(filtered_products);
             return filtered_products;
         }
         
@@ -157,8 +158,18 @@ app.factory('ProductsService'
                         prod_tmp.push(p);
                     }
             });
-            return prod_tmp;
-        }
+            
+//            var tempArray = [];
+//            angular.forEach(products, function(p){
+//                tempArray.push(parseInt(p.price, 10));
+//                });
+//            products_price = tempArray;
+            return prod_tmp;            
+        }        
+//        service.getProductsPrice = function()
+//        {
+//            return products_price;
+//        }
 //-----------------------------------------------------------------------------------------------------------                
 //Запросы для категорий
         function getAllCategories() {//получает все категории
@@ -170,7 +181,7 @@ app.factory('ProductsService'
             .success(function(data, status, headers, config) {
 
                 categories = data;
-                console.log(categories);
+                //console.log(categories);
                 $rootScope.$broadcast('categories:updated');
                 //console.log(data);                
             })
@@ -194,7 +205,7 @@ app.factory('ProductsService'
                 }
                 index++;
                 });
-            console.log(categories_filter);    
+            //console.log(categories_filter);    
             $rootScope.$broadcast('products_filter:updated');            
         }
         
@@ -209,7 +220,7 @@ app.factory('ProductsService'
                 index++;
                 });
             $rootScope.$broadcast('products_filter:updated');    
-            console.log(categories_filter);
+            //console.log(categories_filter);
         }
         
         service.getFiltercatprod = function (){
@@ -251,7 +262,7 @@ app.factory('ProductsService'
                 }
                 index++;
                 });
-            console.log(sizes_filter);
+            //console.log(sizes_filter);
             $rootScope.$broadcast('products_filter:updated');            
         }
         
@@ -361,9 +372,9 @@ app.factory('ProductsService'
 
             .success(function(data, status, headers, config) {
 
-                products_filter = data;                                
-                $rootScope.$broadcast('products_filter:updated');                
-                console.log(data);
+                products_filter = data;
+                $rootScope.$broadcast('products_filter:updated');
+                //console.log(data);
             })
 
             .error(function(data, status, headers, config) {console.log(data);});

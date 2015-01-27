@@ -1,10 +1,16 @@
 'use strict';
 
 app.controller('ProductsController'
-    ,['$scope', '$rootScope', 'ProductsService', '$routeParams',
-    function($scope, $rootScope, ProductsService, $routeParams){
+    ,['$scope', '$rootScope', 'ProductsService', '$routeParams', '$location', '$sce',
+    function($scope, $rootScope, ProductsService, $routeParams, $location, $sce){
         
-        $scope.test = '1';   
+        $scope.test = '1';  
+        
+        $scope.sce = $sce;
+        
+        $scope.go = function ( path ) {
+          $location.path( path );
+        };
         
         // Retrieving a cookie
         //$scope.categories_filter = $cookies.categories_filter;
@@ -14,15 +20,19 @@ app.controller('ProductsController'
         
         //console.log($cookies.categories_filter);
         
-        $rootScope.price;
-        
+        $rootScope.price = 10000;
+        $rootScope.minPrice = 1200;
+        $rootScope.maxPrice = 20000;
         
         $rootScope.$on('products_filter:updated', function(event, data) {
-            $rootScope.products = ProductsService.getAllMiniature();
+            $rootScope.products = ProductsService.getAllMiniature();            
         });        
         
         $rootScope.$on('products:updated', function(event, data) {
-            $rootScope.products = ProductsService.getAllMiniature();
+            $rootScope.products = ProductsService.getAllMiniature();            
+//            var priceArray = ProductsService.getProductsPrice();            
+//            $rootScope.maxPrice = Math.max.apply({},priceArray);
+//            $rootScope.minPrice = Math.min.apply({},priceArray);            
         });        
         
         $rootScope.$on('categories:updated', function(event, data) {

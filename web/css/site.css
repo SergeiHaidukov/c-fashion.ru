@@ -15,7 +15,7 @@ body {
 }
 
 .footer {
-    height: 400px;
+    //height: 400px;
     background-color: #2A2A2A;
     border-top: 1px solid #ddd;
     padding-top: 20px;
@@ -140,10 +140,11 @@ a.desc:after {
 .singleproduct{
     //height: 200px;
     margin-bottom: 10px;
+    border-bottom: 1px solid #CCCCCC;
 }
 
 .product-miniature{
-    max-height: 182px;
+    //max-height: 182px;
     margin-bottom: 5px;
 }
 
@@ -207,4 +208,10 @@ a.desc:after {
 
 .sliderdemoBasicUsage input[type="number"] {
   text-align: center; }
+
+.back-fixed-button{
+    position:fixed;
+    bottom: 50px;
+    right: 20px;
+}
 
