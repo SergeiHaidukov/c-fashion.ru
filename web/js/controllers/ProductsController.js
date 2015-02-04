@@ -12,6 +12,11 @@ app.controller('ProductsController'
           $location.path( path );
         };
         
+        $scope.fixPrice = function (last_price) {          
+          ProductsService.setPrice(last_price);
+          $rootScope.price = ProductsService.getPrice();          
+        };
+        
         // Retrieving a cookie
         //$scope.categories_filter = $cookies.categories_filter;
         // Setting a cookie
@@ -20,16 +25,24 @@ app.controller('ProductsController'
         
         //console.log($cookies.categories_filter);
         
-        $rootScope.price = 10000;
-        $rootScope.minPrice = 1200;
-        $rootScope.maxPrice = 20000;
+        $rootScope.price = ProductsService.getPrice();
+        $rootScope.minPrice = ProductsService.getPriceMin();
+        $rootScope.maxPrice = ProductsService.getPriceMax();
         
         $rootScope.$on('products_filter:updated', function(event, data) {
             $rootScope.products = ProductsService.getAllMiniature();            
+            ProductsService.setPriceMinMax();
+            $rootScope.price = ProductsService.getPrice();
+            $rootScope.minPrice = ProductsService.getPriceMin();
+            $rootScope.maxPrice = ProductsService.getPriceMax();
         });        
         
         $rootScope.$on('products:updated', function(event, data) {
-            $rootScope.products = ProductsService.getAllMiniature();            
+            $rootScope.products = ProductsService.getAllMiniature();                        
+            ProductsService.setPriceMinMax();            
+            $rootScope.price = ProductsService.getPrice();
+            $rootScope.minPrice = ProductsService.getPriceMin();
+            $rootScope.maxPrice = ProductsService.getPriceMax();
 //            var priceArray = ProductsService.getProductsPrice();            
 //            $rootScope.maxPrice = Math.max.apply({},priceArray);
 //            $rootScope.minPrice = Math.min.apply({},priceArray);            
@@ -47,28 +60,28 @@ app.controller('ProductsController'
             $rootScope.colors = ProductsService.getAllColors();            
         });
         
-        $scope.setfiltercatprod = function(id_category) {
-            ProductsService.setFilterCatProd(id_category);
+        $scope.setfiltercatprod = function(id_category) {            
+            ProductsService.setFilterCatProd(id_category);            
         }            
         
-        $scope.delfiltercatprod = function(id_category) {
-            ProductsService.delFilterCatProd(id_category);
+        $scope.delfiltercatprod = function(id_category) {            
+            ProductsService.delFilterCatProd(id_category);            
         }
         
-        $scope.setfiltersizeprod = function(id_size) {
-            ProductsService.setFilterSizeProd(id_size);
+        $scope.setfiltersizeprod = function(id_size) {            
+            ProductsService.setFilterSizeProd(id_size);            
         }            
         
-        $scope.delfiltersizeprod = function(id_size) {
-            ProductsService.delFilterSizeProd(id_size);
+        $scope.delfiltersizeprod = function(id_size) {            
+            ProductsService.delFilterSizeProd(id_size);            
         }
         
-        $scope.setfiltercolorprod = function(id_color) {
-            ProductsService.setFilterColorProd(id_color);
+        $scope.setfiltercolorprod = function(id_color) {            
+            ProductsService.setFilterColorProd(id_color);            
         }            
         
-        $scope.delfiltercolorprod = function(id_color) {
-            ProductsService.delFilterColorProd(id_color);
+        $scope.delfiltercolorprod = function(id_color) {            
+            ProductsService.delFilterColorProd(id_color);            
         }
         
         //$cookies.categories_filter = $scope.categories_filter;        

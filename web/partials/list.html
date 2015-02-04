@@ -26,7 +26,7 @@
                 <div class="col-xs-12">
                     <h4>Цена</h4>
                     <p>{{price}}</p>
-                    <md-slider flex min="{{minPrice}}" max="{{maxPrice}}" step="100" ng-model="price" aria-label="red" id="red-slider" class="md-warn"></md-slider>                
+                    <md-slider flex min="{{minPrice}}" max="{{maxPrice}}" step="100" ng-model="price" aria-label="red" id="red-slider" class="md-warn" ng-click="fixPrice(price)"></md-slider>
                 </div>
                 <div class="col-xs-12">
                     <h4>Размеры</h4>
@@ -51,7 +51,7 @@
             <div ng-repeat="p in products">
                 <div class="col-md-3 col-sm-4 col-xs-6 singleproduct" ng-if="p.price <= price">
                     <a name="product_{{p.id_product}}"></a>
-                    <a class="product-miniature" href="/#!/page/{{p.id_product}}">
+                    <a class="product-miniature" ng-click="fixPrice(price)" href="/#!/page/{{p.id_product}}">
                         <img src="/img/thumbnail/{{p.file_name}}" class="img-responsive img-rounded list-img-thumbnail">                            
                     </a>
                     <span class="col-xs-12 text-center">Цена: {{p.price}} руб.</span>

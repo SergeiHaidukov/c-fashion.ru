@@ -17,6 +17,9 @@ app.factory('ProductsService'
         var single_product_sizes = [];
         var single_product_colors = [];
         var single_product_main_picture;
+        var price = 10000;
+        var price_min = 1000;
+        var price_max = 100000;
 
         function getAllMiniature() {
 //            var host = $location.host();
@@ -36,6 +39,24 @@ app.factory('ProductsService'
         }
         
         var service = {};
+        
+//-----------------------------------------------------------------------------------------------------------
+//Запросы для цены price
+   service.getPrice = function(){
+       return price;
+   } 
+   service.getPriceMin = function(){
+       return price_min;
+   } 
+   service.getPriceMax = function(){
+       return price_max;
+   } 
+   
+   service.setPrice = function(last_price){
+       price = last_price;
+       console.log(price);
+   } 
+//-----------------------------------------------------------------------------------------------------------        
 //-----------------------------------------------------------------------------------------------------------                        
 //Запросы для одного товара
 
@@ -170,6 +191,24 @@ app.factory('ProductsService'
 //        {
 //            return products_price;
 //        }
+        service.setPriceMinMax = function(){
+            var filtered_products = products;//getFilteredProducts();
+            var minPrice = 100000;
+            var maxPrice = 1000;
+            angular.forEach(filtered_products, function(fp){
+                        if(fp.price < minPrice){
+                            minPrice = parseInt(fp.price, 10);
+                        }
+                        if(fp.price > maxPrice){
+                            maxPrice = parseInt(fp.price, 10);
+                        }
+                    });
+            if (price < parseInt(minPrice, 10)){price = parseInt(minPrice, 10);}
+            if (price > parseInt(maxPrice, 10)){price = parseInt(maxPrice, 10);}            
+            console.log(price);
+            price_min = minPrice;
+            price_max = maxPrice;            
+        }
 //-----------------------------------------------------------------------------------------------------------                
 //Запросы для категорий
         function getAllCategories() {//получает все категории
