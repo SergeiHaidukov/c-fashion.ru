@@ -1,6 +1,9 @@
 'use strict';
-
 var app = angular.module('cfashion',['ui.bootstrap','ngRoute', 'ngCookies', 'ngMaterial']);
+
+app.run(function(){
+    console.log("::use::run");
+  });
 
 app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
     $routeProvider.when('/list', {
@@ -17,3 +20,22 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
     //$locationProvider.html5Mode({enabled: true, requireBase: false});
     $locationProvider.hashPrefix('!');
 }]);
+
+//angular.element(document).ready(function(){        
+//    console.log("::prepare");
+//    
+//    var $inj = angular.bootstrap(document.body, ['cfashion']);
+//    var $rootScope = $inj.get("$rootScope");
+//    
+//    console.log("::loaded");
+//    
+//    $rootScope.$broadcast("init");
+//    $rootScope.$digest();
+//    
+//    
+//     console.log("::finalize");
+//});
+
+
+
+

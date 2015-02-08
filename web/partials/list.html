@@ -14,6 +14,7 @@
     <div class="row">            
         <div class="col-md-3 col-sm-3 sidemenu">                    
             <a class="btn btn-default" href="#product_24" target="_self"></a>
+            <a class="btn btn-default" ng-click = "goToAnchor()"></a>
             <div class="row">                        
                 <div class="col-xs-12">
                     <h4>Категории</h4>                            
@@ -50,8 +51,8 @@
         <div class="col-md-9 col-sm-9 productslist">
             <div ng-repeat="p in products">
                 <div class="col-md-3 col-sm-4 col-xs-6 singleproduct" ng-if="p.price <= price">
-                    <a name="product_{{p.id_product}}"></a>
-                    <a class="product-miniature" ng-click="fixPrice(price)" href="/#!/page/{{p.id_product}}">
+                    <div id="product_{{p.id_product}}"></div>
+                    <a class="product-miniature" ng-click="fixPrice(price, p.id_product)" href="/#!/page/{{p.id_product}}">
                         <img src="/img/thumbnail/{{p.file_name}}" class="img-responsive img-rounded list-img-thumbnail">                            
                     </a>
                     <span class="col-xs-12 text-center">Цена: {{p.price}} руб.</span>

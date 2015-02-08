@@ -4,7 +4,7 @@ $this->title = 'Магазин "Contrast fashion"';
 ?>
 <div ng-app="cfashion">
     <div class="site-index">        
-        <div ng-view></div>                
+        <div ng-view [onload=""] [autoscroll=""]></div>                
         <!--<div class="container">
             <div class="row">
                 <div class="main-showcase jumbotron">

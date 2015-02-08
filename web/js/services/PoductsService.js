@@ -82,7 +82,7 @@ app.factory('ProductsService'
 
                 .success(function(data, status, headers, config) {
                     single_product_images = data;
-                    $rootScope.$broadcast('single_product_images:updated');
+                    $rootScope.$broadcast('single_product_images:updated');                    
                     console.log(data);                    
                 })
 

@@ -1,18 +1,27 @@
 'use strict';
 
 app.controller('ProductsController'
-    ,['$scope', '$rootScope', 'ProductsService', '$routeParams', '$location', '$sce',
-    function($scope, $rootScope, ProductsService, $routeParams, $location, $sce){
-        
+    ,['$scope', '$rootScope', 'ProductsService', '$routeParams', '$location', '$sce', '$anchorScroll', '$timeout',
+    function($scope, $rootScope, ProductsService, $routeParams, $location, $sce , $anchorScroll, $timeout){        
+        $location.hash("product_"+$rootScope.id_product);
         $scope.test = '1';  
         
         $scope.sce = $sce;
         
-        $scope.go = function ( path ) {
-          $location.path( path );
+        $scope.go = function (path) {          
+          $location.path(path);
+          for(var i=0; i<=3; i++) $timeout($scope.goToAnchor, 1000);
+          
         };
         
-        $scope.fixPrice = function (last_price) {          
+        $scope.goToAnchor = function() {
+          //$location.hash("product_"+24);
+          $location.hash("product_"+$rootScope.id_product);
+          console.log($location.hash());
+          $anchorScroll();
+        };                
+        
+        $scope.fixPrice = function (last_price, id_product) {
           ProductsService.setPrice(last_price);
           $rootScope.price = ProductsService.getPrice();          
         };
@@ -34,7 +43,8 @@ app.controller('ProductsController'
             ProductsService.setPriceMinMax();
             $rootScope.price = ProductsService.getPrice();
             $rootScope.minPrice = ProductsService.getPriceMin();
-            $rootScope.maxPrice = ProductsService.getPriceMax();
+            $rootScope.maxPrice = ProductsService.getPriceMax();            
+            console.log("::products_filter::update");
         });        
         
         $rootScope.$on('products:updated', function(event, data) {
@@ -43,6 +53,7 @@ app.controller('ProductsController'
             $rootScope.price = ProductsService.getPrice();
             $rootScope.minPrice = ProductsService.getPriceMin();
             $rootScope.maxPrice = ProductsService.getPriceMax();
+            console.log("::products::update");
 //            var priceArray = ProductsService.getProductsPrice();            
 //            $rootScope.maxPrice = Math.max.apply({},priceArray);
 //            $rootScope.minPrice = Math.min.apply({},priceArray);            
@@ -86,6 +97,10 @@ app.controller('ProductsController'
         
         //$cookies.categories_filter = $scope.categories_filter;        
         
+//        $rootScope.$on("init", function(ev, data) {
+//            console.log("::use::init");
+//        });
+        
         $rootScope.$on('products_filter:updated', function(event, data) {
             $rootScope.categories_filter = ProductsService.getFiltercatprod();
             $rootScope.sizes_filter = ProductsService.getFiltersizeprod();
@@ -112,9 +127,11 @@ app.controller('ProductsController'
         if ($routeParams.id_product !== undefined)
         {
             //$scope.viewproduct = ProductsService.viewProduct($routeParams.id_product);
-            $scope.id_product = $routeParams.id_product;
-            ProductsService.setProductPictures($scope.id_product);
-            ProductsService.setProduct($scope.id_product);
+            $rootScope.id_product = $routeParams.id_product;
+            $location.hash("product_"+$rootScope.id_product);
+            ProductsService.setProductPictures($rootScope.id_product);
+            ProductsService.setProduct($rootScope.id_product);
         }
         
+        console.log("::use::ctrl");          
     }])
