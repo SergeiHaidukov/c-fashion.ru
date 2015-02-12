@@ -24,7 +24,7 @@ class AppAsset extends AssetBundle
     public $js = [
         'js/angular.min.js',
         'js/ui-bootstrap-tpls-0.12.0.min.js',
-        'js/app.js',
+        'js/app.js',        
         'js/controllers/ProductsController.js',
         'js/services/PoductsService.js',
         'js/controllers/CategoriesController.js',
@@ -35,6 +35,8 @@ class AppAsset extends AssetBundle
         '//ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular-animate.min.js',
         '//ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular-aria.min.js',
         'js/angular-material.min.js',
+        'js/bootstrap/dist/js/bootstrap.min.js',
+        'js/bootstrap/js/tab.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

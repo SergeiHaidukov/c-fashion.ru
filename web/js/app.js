@@ -14,6 +14,9 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
         templateUrl: 'partials/page.html',
         controller: 'ProductsController'
     });        
+    $routeProvider.when('/contact', {
+        templateUrl: 'partials/contact.html',        
+    });
     $routeProvider.otherwise({
         redirectTo: '/list'
     });

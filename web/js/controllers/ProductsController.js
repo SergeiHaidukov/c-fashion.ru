@@ -21,7 +21,7 @@ app.controller('ProductsController'
           $anchorScroll();
         };                
         
-        $scope.fixPrice = function (last_price, id_product) {
+        $scope.fixPrice = function (last_price) {
           ProductsService.setPrice(last_price);
           $rootScope.price = ProductsService.getPrice();          
         };

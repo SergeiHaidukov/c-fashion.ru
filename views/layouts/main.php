@@ -23,8 +23,13 @@ AppAsset::register($this);
 <body>
 
 <?php $this->beginBody() ?>
-    <div class="wrap">
+    <div class="wrap">                
+        <a href="/#!/list" class="btn btn-default col-xs-6">Главная</a>
+        <a href="/#!/contact" class="btn btn-default col-xs-6">Контакты</a>
+
         <?php
+        if (!Yii::$app->user->isGuest)
+        {
             NavBar::begin([
                 'brandLabel' => 'C-Fashion',
                 'brandUrl' => Yii::$app->homeUrl,
@@ -64,6 +69,7 @@ AppAsset::register($this);
                 ]);
             }
             NavBar::end();
+        }
         ?>
 
         <div class="container">
@@ -71,7 +77,7 @@ AppAsset::register($this);
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             ]) ?>
             <?= $content ?>
-        </div>
+        </div>        
     </div>
 
     <footer class="footer">

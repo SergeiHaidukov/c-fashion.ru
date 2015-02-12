@@ -203,8 +203,8 @@ app.factory('ProductsService'
                             maxPrice = parseInt(fp.price, 10);
                         }
                     });
-            if (price < parseInt(minPrice, 10)){price = parseInt(minPrice, 10);}
-            if (price > parseInt(maxPrice, 10)){price = parseInt(maxPrice, 10);}            
+//            if (price < parseInt(minPrice, 10)){price = parseInt(minPrice, 10);}
+//            if (price > parseInt(maxPrice, 10)){price = parseInt(maxPrice, 10);}            
             console.log(price);
             price_min = minPrice;
             price_max = maxPrice;            

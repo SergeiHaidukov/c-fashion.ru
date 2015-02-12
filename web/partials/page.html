@@ -31,12 +31,12 @@
                     ?>
                     <img src="<?php echo (yii\helpers\Url::to('@web/img/'.$filename['file_name'], true)); ?>" class="img-responsive" >
                 </div>-->
-                <div class="row product-foto-main">
+                <div class="col-sm-8 product-foto-main">
                     <img src="/img/{{single_product_image_main.file_name}}" class="img-responsive img-rounded">
                 </div>
-                <div class="row">
+                <div class="col-sm-4">
                     <div ng-repeat="pp in single_product_images">
-                        <div class="col-xs-6 col-sm-4 thumbnail-btn">
+                        <div class="col-xs-6 col-sm-12 thumbnail-btn">
                             <img src="/img/thumbnail/{{pp.file_name}}" class="btn img-responsive img-rounded" ng-click="setmainpictures(pp.id_picture)">
                         </div>
                     </div>
