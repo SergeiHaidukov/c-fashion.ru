@@ -9,15 +9,24 @@
         <!--<a href="/#!/list" class="col-xs-12 btn btn-info"><i class="glyphicon glyphicon-chevron-left"></i>     Вернуться к списку платьев</a>-->
         
         <div class="col-xs-12 productpage-text">            
-            <h1>{{single_product.name}}</h1>
+            
             <div class="row">
-                <div class="col-xs-12 text-center">
+                <div class="col-xs-6 text-center">
+                    <h1>{{single_product.name}}</h1>
+                </div>
+                <div class="col-xs-6 text-center">
                         <h2>Цена: {{single_product.price}} руб</h2>                                        
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12 text-center">
-                    <h3 ng-bind-html="sce.trustAsHtml(single_product.description)"></h3>
+                    <h4 ng-bind-html="sce.trustAsHtml(single_product.description)"></h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 phone_number text-center">
+                    <h3>По всем вопросам звоните, пожалуйста, по телефону <strong>+7-960-885-68-05</strong> Екатерина</h3>
+                    <h3>Или пишите на email: gorbunova-ekaterina@yandex.ru</h3>
                 </div>
             </div>
             <!--<a class="col-xs-8 col-xs-offset-2 btn btn-warning btn-lg btn-buy-now">Купить сейчас</a>

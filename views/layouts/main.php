@@ -16,16 +16,27 @@ AppAsset::register($this);
 <head>
     <meta charset="<?= Yii::$app->charset ?>"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
+    <?= Html::csrfMetaTags() ?>    
+    <title>Мы хотим выбрать для Вас лучшее вечернее платье.</title>
     <?php $this->head() ?>
 </head>
 <body>
 
 <?php $this->beginBody() ?>
-    <div class="wrap">                
-        <a href="/#!/list" class="btn btn-default col-xs-6">Главная</a>
-        <a href="/#!/contact" class="btn btn-default col-xs-6">Контакты</a>
+    <div class="wrap">        
+        <div class="container">            
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <h2>Мы хотим выбрать для Вас лучшее вечернее платье.</h2>
+                </div>
+            </div>
+            <div class="row">                
+                <div class="col-xs-12">                      
+                    <a class="btn btn-default col-xs-6" href="/#!/list">Выбрать платье</a>
+                    <a class="btn btn-default col-xs-6" href="/#!/contact">Наши контакты</a>
+                </div>
+            </div>
+        </div>        
 
         <?php
         if (!Yii::$app->user->isGuest)
@@ -69,7 +80,7 @@ AppAsset::register($this);
                 ]);
             }
             NavBar::end();
-        }
+        }    
         ?>
 
         <div class="container">

@@ -11,7 +11,7 @@ body {
 }
 
 .wrap > .container {
-    padding: 70px 15px 20px;
+    padding-top: 20px;
 }
 
 .footer {
@@ -215,3 +215,7 @@ a.desc:after {
     right: 20px;
 }
 
+.phone_number{
+    color: #2F7D17;
+    border: 1px solid;
+}
