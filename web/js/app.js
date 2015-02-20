@@ -21,6 +21,7 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
         redirectTo: '/list'
     });
     //$locationProvider.html5Mode({enabled: true, requireBase: false});
+    //$locationProvider.html5Mode(true);
     $locationProvider.hashPrefix('!');
 }]);
 

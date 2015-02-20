@@ -1,26 +1,28 @@
-<div class="container">
+
     <md-button ng-click="go('/#!/list')" class="md-fab md-primary back-fixed-button" aria-label="Time">
         <md-tooltip>
           Вернуться к списку платьев
         </md-tooltip>
         <md-icon icon="images/icons/reply18.png" style="width: 24px; height: 24px;">
         </md-button>
+<div itemscope itemtype="http://schema.org/Product">    
     <div class="row productpage">
-        <!--<a href="/#!/list" class="col-xs-12 btn btn-info"><i class="glyphicon glyphicon-chevron-left"></i>     Вернуться к списку платьев</a>-->
-        
-        <div class="col-xs-12 productpage-text">            
-            
+        <!--<a href="/#!/list" class="col-xs-12 btn btn-info"><i class="glyphicon glyphicon-chevron-left"></i>     Вернуться к списку платьев</a>-->        
+        <div class="col-xs-12 productpage-text">                        
             <div class="row">
                 <div class="col-xs-6 text-center">
-                    <h1>{{single_product.name}}</h1>
+                    <h1 itemprop="name">{{single_product.name}}</h1>
                 </div>
-                <div class="col-xs-6 text-center">
-                        <h2>Цена: {{single_product.price}} руб</h2>                                        
+                <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                    <div class="col-xs-6 text-center">
+                        <h2>Цена: <span itemprop="price">{{single_product.price}}</span> <span itemprop="priceCurrency">RUB</span></h2>
+                            
+                    </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12 text-center">
-                    <h4 ng-bind-html="sce.trustAsHtml(single_product.description)"></h4>
+                    <h4 itemprop="description" ng-bind-html="sce.trustAsHtml(single_product.description)"></h4>
                 </div>
             </div>
             <div class="row">
@@ -33,24 +35,23 @@
             <a class="col-xs-8 col-xs-offset-2 btn btn-default btn-xs">Поместить в корзину</a>-->            
         </div>
         <div class="col-xs-12 productpage-foto">
-                <!--<div class="row product-foto-main">
-                    <?php
-                    $files = $model->getImage($model->id_product);                    
-                    $filename = $files[0];
-                    ?>
-                    <img src="<?php echo (yii\helpers\Url::to('@web/img/'.$filename['file_name'], true)); ?>" class="img-responsive" >
-                </div>-->
-                <div class="col-sm-8 product-foto-main">
-                    <img src="/img/{{single_product_image_main.file_name}}" class="img-responsive img-rounded">
-                </div>
-                <div class="col-sm-4">
-                    <div ng-repeat="pp in single_product_images">
-                        <div class="col-xs-6 col-sm-12 thumbnail-btn">
-                            <img src="/img/thumbnail/{{pp.file_name}}" class="btn img-responsive img-rounded" ng-click="setmainpictures(pp.id_picture)">
-                        </div>
+            <!--<div class="row product-foto-main">
+                <?php
+                $files = $model->getImage($model->id_product);                    
+                $filename = $files[0];
+                ?>
+                <img src="<?php echo (yii\helpers\Url::to('@web/img/'.$filename['file_name'], true)); ?>" class="img-responsive" >
+            </div>-->
+            <div class="col-sm-8 product-foto-main">
+                <img itemprop="image" src="http://c-fashion.ru/img/{{single_product_image_main.file_name}}" alt="" class="img-responsive img-rounded">
+            </div>
+            <div class="col-sm-4">
+                <div ng-repeat="pp in single_product_images">
+                    <div class="col-xs-6 col-sm-12 thumbnail-btn">
+                        <img itemprop="image" src="http://c-fashion.ru/img/thumbnail/{{pp.file_name}}" alt="" class="btn img-responsive img-rounded" ng-click="setmainpictures(pp.id_picture)">
                     </div>
                 </div>
-        </div>
-        
+            </div>
+        </div>        
     </div>    
 </div>
