@@ -35,8 +35,6 @@ class AppAsset extends AssetBundle
         '//ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular-animate.min.js',
         '//ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular-aria.min.js',
         'js/angular-material.min.js',
-        'js/bootstrap/dist/js/bootstrap.min.js',
-        'js/bootstrap/js/tab.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
