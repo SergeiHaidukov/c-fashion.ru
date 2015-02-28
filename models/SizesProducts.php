@@ -48,7 +48,7 @@ class SizesProducts extends \yii\db\ActiveRecord
         
         $query = (new \yii\db\Query())
                 ->select('s.id_size,
-                            s.name,
+                            s.size_name,
                             sp.ID')
                 ->where(['sp.id_product' => $id_product, ])
                 ->from('Sizes s')

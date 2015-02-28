@@ -73,32 +73,69 @@ $this->params['breadcrumbs'][] = 'Update';
                 <a class="btn btn-default cat-set-button" ng-click="setcatprod(c.id_category)">{{c.name}}</a>
             </div>
         </div>
-    
-        <h3>Цвета</h3>
-        <div class="row">            
-            <div ng-repeat="cp in colprod">
-                <a class="btn btn-default color-set-button" ng-style="{'border-color':cp.code}" ng-click="delcolprod(cp.ID)">{{cp.name}} <i class="glyphicon glyphicon-remove"></i></a>
-            </div>
-        </div>    
-        <hr/> 
-        <div class="row">            
-            <div ng-repeat="cl in colors">
-                <a class="btn btn-default color-set-button" ng-style="{'border-color':cl.code}" ng-click="setcolprod(cl.id_color)">{{cl.name}}</a>
-            </div>
-        </div>    
         
-        <h3>Размеры</h3>
-        <div class="row">            
-            <div ng-repeat="s in sizeprod">
-                <a class="btn btn-default sizes-set-button" ng-click="delsizeprod(s.ID)">{{s.name}} <i class="glyphicon glyphicon-remove"></i></a>
+        <div class="row">
+            <h3>Цвета и размеры</h3>
+            <div class="col-xs-12">
+                <div ng-repeat="pt in prodtempprod | orderBy: 'id_color'">
+                    <a class="btn btn-default color-set-button btn-sm" ng-style="{'border-color':pt.color_code}" ng-click="delcprodtemp(pt.id_prod_temp)">{{pt.color_name}} {{pt.size_name}}  <i class="glyphicon glyphicon-remove"></i></a>
+                </div>
+            </div>                
+        </div>        
+        <div class="row">
+            <div class="col-xs-4">                
+                <table class="table">
+                    <tr>
+                        <th>
+                            Цвет
+                        </th>
+                        <th>
+                            Размер
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <select class="col-xs-12" ng-model="selectedcolor" ng-style="{'border-color':selectedcolor.color_code}" ng-options="cl.color_name for cl in colors"></select>                
+                        </td>
+                        <td>
+                            <select class="col-xs-12" ng-model="selectedsize"  ng-options="sz.size_name for sz in sizes"></select>                
+                        </td>
+                        <td>
+                            <a class="btn btn-default color-set-button col-xs-12 btn-sm" ng-click="setprodtemp(selectedcolor.id_color, selectedsize.id_size)"><i class="glyphicon glyphicon-ok"></i></a>
+                        </td>
+                    </tr>
+                </table>                                             
             </div>
         </div>
         <hr/>
-        <div class="row">            
-            <div ng-repeat="sz in sizes">
-                <a class="btn btn-default sizes-set-button" ng-click="setsizeprod(sz.id_size)">{{sz.name}}</a>
+<!--        <div class="row">            
+            <div class="col-xs-4">
+                <h3>Цвета</h3>
+                <div class="col-xs-12">            
+                    <div ng-repeat="cp in colprod">
+                        <a class="btn btn-default color-set-button btn-sm" ng-style="{'border-color':cp.color_code}" ng-click="delcolprod(cp.ID)">{{cp.color_name}} <i class="glyphicon glyphicon-remove"></i></a>
+                    </div>
+                </div>    
+                <hr/> 
+                <div class="col-xs-12">            
+                    <div ng-repeat="cl in colors">
+                        <a class="btn btn-default color-set-button btn-sm" ng-style="{'border-color':cl.color_code}" ng-click="setcolprod(cl.id_color)">{{cl.color_name}}</a>
+                    </div>
+                </div>    
+
+                <h3>Размеры</h3>
+                <div class="col-xs-12">            
+                    <div ng-repeat="s in sizeprod">
+                        <a class="btn btn-default sizes-set-button btn-sm" ng-click="delsizeprod(s.ID)">{{s.size_name}} <i class="glyphicon glyphicon-remove"></i></a>
+                    </div>
+                </div>
+                <hr/>
+                <div class="col-xs-12">            
+                    <div ng-repeat="sz in sizes">
+                        <a class="btn btn-default sizes-set-button btn-sm" ng-click="setsizeprod(sz.id_size)">{{sz.size_name}}</a>
+                    </div>
+                </div>
             </div>
-        </div>
-        
+        </div>-->
     </div>    
 </div>

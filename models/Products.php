@@ -88,14 +88,14 @@ class Products extends \yii\db\ActiveRecord
     {
         $query = (new \yii\db\Query())
                 ->select('p.id_product,        
-                            p.price,                                        
-                            cp.id_category,                
-                            sp.id_size,                
-                            cp1.id_color')                
+                            p.price,
+                            p.oldprice,                        
+                            cp.id_category,                        
+                            pt.id_color,
+                            pt.id_size')                
                 ->from('Products p')
                 ->leftJoin('Categories_Products cp', 'p.id_product = cp.id_product')
-                ->leftJoin('Sizes_Products sp', 'p.id_product = sp.id_product')
-                ->leftJoin('Colors_Products cp1', 'p.id_product = cp1.id_product');
+                ->leftJoin('Products_Template pt', 'p.id_product = pt.id_product');                
         $command = $query->createCommand();
         $images = $command->queryAll();
                 

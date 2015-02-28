@@ -32,7 +32,7 @@ AppAsset::register($this);
             </div>
             <div class="row">                
                 <div class="col-xs-12">                      
-                    <a class="btn btn-default col-xs-6" href="/#!/list">Выбрать платье</a>
+                    <a class="btn btn-default col-xs-6" href="/#!/list">Каталог платьев</a>
                     <a class="btn btn-default col-xs-6" href="/#!/contact">Наши контакты</a>
                 </div>
             </div>
@@ -74,6 +74,8 @@ AppAsset::register($this);
                              ['label' => 'Платья', 'url' => '/products'],
                              ['label' => 'Цвета', 'url' => '/colors'],
                              ['label' => 'Размеры', 'url' => '/sizes'],
+                             ['label' => 'Свойства продукта', 'url' => '/product-attribute-template'],
+                             ['label' => 'Значение свойств продукта', 'url' => '/product-attribute-value'],
                         ],
                     ],
                 ],
@@ -91,14 +93,7 @@ AppAsset::register($this);
         </div>        
     </div>
 
-    <footer class="footer">
-        <!--<div class="container">
-            <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-            <p class="pull-right"><?= Yii::powered() ?></p>
-        </div>-->
-		<!-- Yandex.Metrika counter --><script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter28531641 = new Ya.Metrika({id:28531641, webvisor:true, clickmap:true, trackLinks:true, accurateTrackBounce:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/28531641" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter -->
-    </footer>
-
+<!-- Yandex.Metrika counter --><script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter28531641 = new Ya.Metrika({id:28531641, webvisor:true, clickmap:true, trackLinks:true, accurateTrackBounce:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/28531641" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter -->
 <?php $this->endBody() ?>
 </body>
 </html>

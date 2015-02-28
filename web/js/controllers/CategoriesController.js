@@ -15,6 +15,17 @@ app.controller('CategoriesController'
             
         });                
         
+        $scope.selectedcolor;
+        $scope.selectedsize;
+        
+        $scope.setprodtemp = function(id_color, id_size){
+            CategoriesService.setProductsTemplateForProduct(id_color, id_size);
+        }
+        
+        $scope.delcprodtemp = function(id_prod_temp){
+            CategoriesService.delProductsTemplateForProduct(id_prod_temp);
+        }
+        
         $scope.setcatprod = function(catprod){
             CategoriesService.setCategoryProduct(catprod);
         }
@@ -32,6 +43,11 @@ app.controller('CategoriesController'
             $scope.colors = CategoriesService.getAllColors();
             //console.log($scope.id_catprod_array);
             
+        });
+        
+        $rootScope.$on('prodtempprod:updated', function(event, data) {
+            $scope.prodtempprod = CategoriesService.getProductsTemplateForProduct();
+            console.log('::prodtempprod:updated::');
         });
         
         $scope.setcolprod = function(colprod){

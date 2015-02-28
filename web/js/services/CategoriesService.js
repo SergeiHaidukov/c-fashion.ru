@@ -9,6 +9,7 @@ app.factory('CategoriesService'
         var colprod = [];//все цвета для товара
         var sizes = [];//все размеры
         var sizeprod = [];//все размеры для товара
+        var prodtempprod = [];//все свойства для продукта
         
         var service = {};
 //-----------------------------------------------------------------------------------------------------------                        
@@ -108,7 +109,7 @@ app.factory('CategoriesService'
         }
         
         function getColorsProduct() {//получает все цвета для товара
-        $http.get('/api/colorsproducts/getcolorsproduct?id_product='+id_product)
+        $http.get('/api/productstemplate/getcolorsproduct?id_product='+id_product)
 
             .success(function(data, status, headers, config) {
 
@@ -123,7 +124,7 @@ app.factory('CategoriesService'
         
         service.setColorProduct = function (id_color) {//устанавливает соответсвие цвет продукт
             
-        $http.post('/api/colorsproducts',{id_color:id_color, id_product:id_product})
+        $http.post('/api/productstemplate',{id_product:id_product, id_color:id_color, id_size:-1})
 
             .success(function(data, status, headers, config) {               
                 
@@ -172,7 +173,7 @@ app.factory('CategoriesService'
                 sizeprod = data;
 
                 $rootScope.$broadcast('sizeprod:updated');
-                console.log(data);                
+                console.log(data);
             })
 
             .error(function(data, status, headers, config) { console.log(data);});
@@ -211,6 +212,7 @@ app.factory('CategoriesService'
         getAllColors();
         getSizesProduct();
         getAllSizes();
+        getProductsTemplateForProduct();
         
         service.getAll = function(){//возвращает все категории
             
@@ -236,20 +238,22 @@ app.factory('CategoriesService'
         
         service.getAllColors = function(){//возвращает все цвета
             
-            var colors_tmp = [];
-                angular.forEach(colors, function(col){
-                    var col_in_cp = false;
-                    angular.forEach(colprod, function(cp){
-                        if(parseInt(col.id_color, 10) == parseInt(cp.id_color, 10)){
-                            col_in_cp = true;
-                        }
-                    });
-                    if (!col_in_cp){
-                        colors_tmp.push(col);
-                    }
-                });            
+//            var colors_tmp = [];
+//                angular.forEach(colors, function(col){
+//                    var col_in_cp = false;
+//                    angular.forEach(colprod, function(cp){
+//                        if(parseInt(col.id_color, 10) == parseInt(cp.id_color, 10)){
+//                            col_in_cp = true;
+//                        }
+//                    });
+//                    if (!col_in_cp){
+//                        colors_tmp.push(col);
+//                    }
+//                });            
+//            
+//            return colors_tmp;
             
-            return colors_tmp;
+            return colors;
         }
         
         service.getColorsProduct = function(){//возвращает цвета для товара                 
@@ -257,25 +261,73 @@ app.factory('CategoriesService'
         }
         
         service.getAllSizes = function(){//возвращает все размеры            
-            var sizes_tmp = [];
-                angular.forEach(sizes, function(sz){
-                    var sz_in_sp = false;
-                    angular.forEach(sizeprod, function(sp){
-                        if(parseInt(sz.id_size, 10) == parseInt(sp.id_size, 10)){
-                            sz_in_sp = true;
-                        }
-                    });
-                    if (!sz_in_sp){
-                        sizes_tmp.push(sz);
-                    }
-                });            
-            
-            return sizes_tmp;
+//            var sizes_tmp = [];
+//                angular.forEach(sizes, function(sz){
+//                    var sz_in_sp = false;
+//                    angular.forEach(sizeprod, function(sp){
+//                        if(parseInt(sz.id_size, 10) == parseInt(sp.id_size, 10)){
+//                            sz_in_sp = true;
+//                        }
+//                    });
+//                    if (!sz_in_sp){
+//                        sizes_tmp.push(sz);
+//                    }
+//                });            
+//            
+//            return sizes_tmp;
+            return sizes;
         }
         
         service.getSizesProduct = function(){//возвращает размеры для товара                 
             return sizeprod;
         }
         
+//-----------------------------------------------------------------------------------------------------------        
+//Запросы для ProductsTemplate
+
+        function getProductsTemplateForProduct() {//возвращает все свойства для продукта
+            $http.get('/api/productstemplate/getcolorsproduct?id_product='+id_product)
+
+            .success(function(data, status, headers, config) {
+
+                prodtempprod = data;
+
+                $rootScope.$broadcast('prodtempprod:updated');
+                console.log(data);
+            })
+
+            .error(function(data, status, headers, config) { console.log(data);});
+        }
+        
+        service.getProductsTemplateForProduct = function(){//возвращает все свойства для продукта
+            return prodtempprod;
+        }
+        
+        service.setProductsTemplateForProduct = function (id_color, id_size) {//устанавливает соответсвие категория продукт
+            
+        $http.post('/api/productstemplate',{id_color:id_color, id_product:id_product, id_size:id_size})
+
+            .success(function(data, status, headers, config) {                
+                getProductsTemplateForProduct();
+                $rootScope.$broadcast('prodtempprod:updated');                
+                console.log(data);
+            })
+            .error(function(data, status, headers, config) { console.log(data); });
+        }
+        
+        service.delProductsTemplateForProduct = function (id_prod_temp) {//удаляет соответствие цвет продукт
+            
+        $http.delete('/api/productstemplate/'+id_prod_temp)
+
+            .success(function(data, status, headers, config) {
+                
+                getProductsTemplateForProduct();
+                $rootScope.$broadcast('prodtempprod:updated');                
+                console.log(data);
+            })
+            .error(function(data, status, headers, config) { console.log(data); });
+        }        
+//-----------------------------------------------------------------------------------------------------------        
         return service;
     }])
+

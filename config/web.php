@@ -50,7 +50,7 @@ $config = [
         'rules' => [
                         '' => 'site/index',
                         'login' => 'site/login',
-                        ['class' => 'yii\rest\UrlRule', 'controller' => ['api/products','api/categories','api/categoriesproducts','api/colors','api/colorsproducts','api/sizes','api/sizesproducts']]
+                        ['class' => 'yii\rest\UrlRule', 'controller' => ['api/products','api/categories','api/categoriesproducts','api/colors','api/colorsproducts','api/sizes','api/sizesproducts','api/productstemplate'],  'pluralize'=>false]
                     ],
         ],
     ],

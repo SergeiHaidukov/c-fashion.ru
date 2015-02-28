@@ -19,7 +19,7 @@ app.controller('ProductsController'
           $location.hash("product_"+$rootScope.id_product);
           console.log($location.hash());
           $anchorScroll();
-        };                
+        };
         
         $scope.fixPrice = function (last_price) {
           ProductsService.setPrice(last_price);
@@ -131,6 +131,11 @@ app.controller('ProductsController'
             $location.hash("product_"+$rootScope.id_product);
             ProductsService.setProductPictures($rootScope.id_product);
             ProductsService.setProduct($rootScope.id_product);
+        }
+        
+        if ($routeParams.id_product == undefined)
+        {
+            $scope.goToAnchor();
         }
         
         console.log("::use::ctrl");          

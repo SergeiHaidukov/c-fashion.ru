@@ -272,7 +272,7 @@ app.factory('ProductsService'
         
         function getAllSizes() {//получает все размеры
 
-        $http.get('/api/sizesproducts/getsizesproducts')
+        $http.get('/api/productstemplate/getsizesproducts')
 
             .success(function(data, status, headers, config) {
 
@@ -328,7 +328,7 @@ app.factory('ProductsService'
         
         function getAllColors() {//получает все цвета
 
-        $http.get('/api/colorsproducts/getcolorsproducts')
+        $http.get('/api/productstemplate/getcolorsproducts')
 
             .success(function(data, status, headers, config) {
 
