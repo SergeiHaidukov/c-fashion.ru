@@ -127,10 +127,11 @@ app.controller('ProductsController'
         if ($routeParams.id_product !== undefined)
         {
             //$scope.viewproduct = ProductsService.viewProduct($routeParams.id_product);
+            yaCounter28531641.hit($location.protocol()+'://'+$location.host()+'/#!'+$location.path(), null, null);            
             $rootScope.id_product = $routeParams.id_product;
             $location.hash("product_"+$rootScope.id_product);
             ProductsService.setProductPictures($rootScope.id_product);
-            ProductsService.setProduct($rootScope.id_product);
+            ProductsService.setProduct($rootScope.id_product);                        
         }
         
         if ($routeParams.id_product == undefined)
