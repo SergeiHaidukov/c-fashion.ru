@@ -236,7 +236,12 @@ app.factory('ProductsService'
         
         service.setFilterCatProd = function(id_category) {
             var index = 0;
-            angular.forEach(categories, function(c){                                
+            if (categories_filter.length > 0)
+            {
+                categories.push(categories_filter[0]);
+                categories_filter = [];   
+            }            
+            angular.forEach(categories, function(c){
                 if(c.id_category === id_category)
                 {                    
                     categories_filter.push(c);
