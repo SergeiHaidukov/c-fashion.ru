@@ -1,11 +1,11 @@
 <div class="container">
 	<div class="row text-center"><div class="col-xs-12"><h1>Каталог платьев</h1></div></div>              
-    <div class="row">   		        
-        <div class="col-md-3 col-sm-3 sidemenu">                    
+    <div class="row">           
+        <div class="col-md-3 col-sm-3 col-sm-push-9 sidemenu">
             <h4>Здесь отображаются выбранные фильтры.</h4>
             <div class="col-xs-12">                                        
                 <div ng-repeat="cf in categories_filter">  
-                    <a class="btn btn-default cat-set-button" ng-click="delfiltercatprod(cf.id_category)" >{{cf.name}} <i class="glyphicon glyphicon-remove"></i></a>
+                    <a class="btn btn-default cat-set-button col-xs-12" ng-click="delfiltercatprod(cf.id_category)" >{{cf.name}} <i class="glyphicon glyphicon-remove"></i></a>
                 </div>                        
                 <div ng-repeat="sf in sizes_filter">
                     <a class="btn btn-default sizes-set-button" ng-click="delfiltersizeprod(sf.id_size)" >{{sf.size_name}} <i class="glyphicon glyphicon-remove"></i></a>
@@ -22,7 +22,7 @@
                     <h4>Категории</h4>                            
                     <div class="row">
                         <div ng-repeat="c in categories | orderBy : 'name'">
-                            <a class="btn btn-default cat-set-button" ng-click="setfiltercatprod(c.id_category)">{{c.name}}</a>
+                            <a class="btn btn-default cat-set-button col-xs-12" ng-click="setfiltercatprod(c.id_category)">{{c.name}}</a>
                         </div>
                     </div>
                 </div>
@@ -48,9 +48,8 @@
                     </div>    
                 </div>                        
             </div>
-
-        </div>
-        <div class="col-md-9 col-sm-9 productslist">
+        </div>  
+        <div class="col-md-9 col-sm-9 col-sm-pull-3 productslist">
             <div class="row text-center"><h1>{{categories_filter[0].name}}</h1></div>
             <div ng-repeat="p in products | orderBy: '-id_product'">
                 <div class="col-md-3 col-sm-4 col-xs-6 singleproduct" ng-if="p.price <= price">
