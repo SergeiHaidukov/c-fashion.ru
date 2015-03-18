@@ -24,19 +24,19 @@ AppAsset::register($this);
 
 <?php $this->beginBody() ?>
     <div class="wrap">        
-        <div class="container">            
-            <div class="row">
+        <div class="container header-logo">            
+<!--            <div class="row">
                 <div class="col-xs-12 text-center">
                     <h2>Мы хотим выбрать для Вас лучшее вечернее платье.</h2>
                 </div>
-            </div>
-            <div class="row">                
+            </div>-->
+            <div class="row header-menu">
                 <div class="col-xs-12">                      
                     <a class="btn btn-default col-xs-6" href="/#!/list">Каталог платьев</a>
-                    <a class="btn btn-default col-xs-6" href="/#!/contact">Наши контакты</a>
+                    <a class="btn btn-default col-xs-6" href="/#!/contact" onclick="yaCounter28531641.reachGoal('contact_watch'); return true;">Наши контакты</a>
                 </div>
             </div>
-        </div>        
+        </div>
 
         <?php
         if (!Yii::$app->user->isGuest)

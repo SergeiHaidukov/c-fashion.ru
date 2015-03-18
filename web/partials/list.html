@@ -20,7 +20,7 @@
             <div class="row">                        
                 <div class="col-xs-12">
                     <h4>Категории</h4>                            
-                    <div class="row">
+                    <div class="">
                         <div ng-repeat="c in categories | orderBy : 'name'">
                             <a class="btn btn-default cat-set-button col-xs-12" ng-click="setfiltercatprod(c.id_category)">{{c.name}}</a>
                         </div>
@@ -33,7 +33,7 @@
                 </div>
                 <div class="col-xs-12">
                     <h4>Размеры</h4>
-                    <div class="row">            
+                    <div class="">            
                         <div ng-repeat="sz in sizes | orderBy : 'size_name'">
                             <a class="btn btn-default sizes-set-button" ng-click="setfiltersizeprod(sz.id_size)">{{sz.size_name}}</a>
                         </div>
@@ -41,7 +41,7 @@
                 </div>
                 <div class="col-xs-12">
                     <h4>Цвета</h4>
-                    <div class="row">            
+                    <div class="">            
                         <div ng-repeat="cl in colors | orderBy : 'color_name'">
                             <a class="btn btn-default color-set-button" ng-style="{'border-color':cl.color_code}" ng-click="setfiltercolorprod(cl.id_color)">{{cl.color_name}}</a>
                         </div>

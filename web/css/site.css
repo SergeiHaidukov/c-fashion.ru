@@ -219,3 +219,13 @@ a.desc:after {
     color: #2F7D17;
     border: 1px solid;
 }
+
+.header-logo{
+    background-image: url("/images/design/logo.jpg");
+    background-size: cover;
+    margin-top: -4%;
+}
+
+.header-menu{
+    margin-top: 20%;
+}
