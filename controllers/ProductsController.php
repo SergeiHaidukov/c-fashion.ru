@@ -93,6 +93,45 @@ class ProductsController extends Controller
      * @param integer $id
      * @return mixed
      */
+    
+    public function actionProgressive()
+    {
+        if (!YII::$app->user->can('crudProducts'))
+            {
+               $this->redirect(array('/login'));
+            }
+            $images = \app\models\Pictures::find()->all();
+            $default = ini_get('max_execution_time');
+            set_time_limit(0);
+            foreach ($images as $image)
+            {
+                $im = imagecreatefromjpeg('img/' .$image['file_name']);
+                imageinterlace($im, true);
+                imagejpeg($im,'img/' .$image['file_name']);
+                
+                $fileName = $image['file_name'];
+            
+                $mode = \Imagine\Image\ImageInterface::THUMBNAIL_INSET;
+                    
+                Image::thumbnail('@webroot/img/' .$fileName, 600, 600, $mode)
+                ->save(Yii::getAlias('@webroot/img/thumbnail/' .$fileName), ['quality' => 80]);                                        
+
+                $picturesmodel = new \app\models\Pictures();
+                $picprodmodel = new \app\models\PicturesProducts();
+
+                $picturesmodel->file_name = $fileName;
+                $picturesmodel->save();
+
+                $picprodmodel->id_picture = $picturesmodel->id_picture;
+                $picprodmodel->id_product = $model->id_product;
+                $picprodmodel->save();
+            }
+            set_time_limit($default);
+            
+            
+    }
+
+
     public function actionUpdate($id)
     {
         if (!YII::$app->user->can('crudProducts'))
@@ -110,8 +149,11 @@ class ProductsController extends Controller
                     $baseName = $model->id_product.'_'.md5(uniqid(rand(),true));
                     /*if($i<10) {$baseName = 'conf0'.$i;}
                     else {$baseName = 'conf'.$i;}*/
-                    $fileName = $baseName . '.' . $file->extension;
-                    $file->saveAs('img/' .$fileName);                                        
+                    $fileName = $baseName . '.' . $file->extension;                    
+                    $file->saveAs('img/' .$fileName);
+                    $im = imagecreatefromjpeg('img/' .$fileName);                    
+                    imageinterlace($im, true);
+                    imagejpeg($im,'img/' .$fileName);
                     
                     $mode = \Imagine\Image\ImageInterface::THUMBNAIL_INSET;
                     
