@@ -51,7 +51,17 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index');
+        parse_str($_SERVER['QUERY_STRING'], $output);
+        
+        $model = new \app\models\Products();
+        $products = $model->getFilteredProducts($output);
+        $products_filter = $model->getFilteredProducts($output);
+        
+        return $this->render('index', [
+            'products' => $products,
+            'output' => $output,
+            'products_filter' => $products_filter
+        ]);        
     }
 
     public function actionLogin()

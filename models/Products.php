@@ -20,6 +20,9 @@ class Products extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    private $products_filter = array();
+    private $products_miniature = array();
+
     public static function tableName()
     {
         return 'Products';
@@ -71,28 +74,31 @@ class Products extends \yii\db\ActiveRecord
     }
     
     public function getProductsMiniture()
-    {
-        $query = (new \yii\db\Query())
+    {     
+        if(empty($this->products_miniature))
+        {
+            $query = (new \yii\db\Query())
                 ->select('*')
-                ->where(['pp.is_miniature' => 1, ])
+                ->where(['pp.is_miniature' => 1/*, 'p.isview' => 1*/ ])
                 ->from('Products p')
                 ->leftJoin('Pictures_Products pp', 'p.id_product = pp.id_product')
                 ->leftJoin('Pictures p1', 'pp.id_picture = p1.id_picture');
-        $command = $query->createCommand();
-        $images = $command->queryAll();
+            $command = $query->createCommand();
+            $this->products_miniature = $command->queryAll();
+        }
                 
-        return ($images);
+        return ($this->products_miniature);
     }
     
     public function getProductsFilter()
     {
         $query = (new \yii\db\Query())
-                ->select('p.id_product,        
+                ->select('p.id_product,
                             p.price,
                             p.oldprice,                        
                             cp.id_category,                        
                             pt.id_color,
-                            pt.id_size')                
+                            pt.id_size')
                 ->from('Products p')
                 ->leftJoin('Categories_Products cp', 'p.id_product = cp.id_product')
                 ->leftJoin('Products_Template pt', 'p.id_product = pt.id_product');                
@@ -100,8 +106,96 @@ class Products extends \yii\db\ActiveRecord
         $images = $command->queryAll();
                 
         return ($images);
-    }       
+    }
     
+    public function getFilteredProducts($query_param) 
+    {                
+        if (empty($this->products_filter))
+            {
+               $this->products_filter = $this->getProductsFilter();
+            }
+        
+        $filtered_products = $this->products_filter;
+        $filtered_products_tmp = array();        
+          
+            $query = (new \yii\db\Query())
+            ->select('p.id_product,
+                        p.price,
+                        p.oldprice,                        
+                        cp.id_category,                        
+                        pt.id_color,
+                        pt.id_size')
+            ->from('Products p')
+//                    ->where(['pt.id_color' => $colors, 'cp.id_category' => $category])
+            ->leftJoin('Categories_Products cp', 'p.id_product = cp.id_product')
+            ->leftJoin('Products_Template pt', 'p.id_product = pt.id_product');
+
+            if($query_param['colors'] != '') { $colors = explode(",", $query_param['colors']); $query->andWhere(['pt.id_color' => $colors]); }
+            if($query_param['category'] != '') { $category = explode(",", $query_param['category']); $query->andWhere(['cp.id_category' => $category]); }
+            if($query_param['sizes'] != '') { $sizes = explode(",", $query_param['sizes']); $query->andWhere(['pt.id_size' => $sizes]); }
+                    
+            $command = $query->createCommand();
+            $filtered_products_tmp = $command->queryAll();             
+        
+        $products_miniature = $this->getProductsMiniture();
+        //var_dump($filtered_products_tmp);
+        
+        if(!empty($filtered_products_tmp))
+        {
+            foreach($products_miniature as $key => $pm)
+            {
+                //var_dump($key);
+                $count = 0;
+                foreach($filtered_products_tmp as $fp)
+                {
+                    if($pm['id_product'] == $fp['id_product'])
+                    {
+                        $count = $count + 1;
+                        //unset($array2[$key]);
+                    }
+                }
+                if($count == 0){unset($products_miniature[$key]);}
+            }
+        }
+        
+        
+//        $products_miniature = $this->getProductsMiniture();
+//        
+//        
+//        if(!empty($filtered_products_tmp))
+//        {
+//            foreach($products_miniature as $key => $pm)
+//            {
+//                //var_dump($key);
+//                $count = 0;
+//                foreach($filtered_products_tmp as $fp)
+//                {
+//                    if($pm['id_product'] == $fp['id_product'])
+//                    {
+//                        $count = $count + 1;
+//                        //unset($array2[$key]);
+//                    }
+//                }
+//                if($count == 0){unset($products_miniature[$key]);}
+//            }
+//        }
+//                
+//        if(!empty($filtered_products_tmp))
+//        {            
+//            return $filtered_products_tmp;
+//        }
+//        else { return $filtered_products; }
+        
+        return $products_miniature;
+    }
+    
+    private function clearArray()
+    {
+        $clear_array = array();
+        
+    }
+
+
 //    public function beforeSave($string) 
 //    {
 //        if ($this->str2url($string))

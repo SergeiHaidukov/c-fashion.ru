@@ -102,11 +102,7 @@ app.factory('ProductsService'
         }        
     service.getProductPictures = function (){//возвращает главную картинку для товара
            return single_product_images;
-        }
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //Запросы для размеров
-    
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        }              
         
 //-----------------------------------------------------------------------------------------------------------                                
 //-----------------------------------------------------------------------------------------------------------                                        
@@ -143,7 +139,7 @@ app.factory('ProductsService'
             }
             else {}
             
-            if(colors_filter.length > 0)//фильта по цвету
+            if(colors_filter.length > 0)//фильтр по цвету
             {
                 var filtered_products_tmp = [];
                 angular.forEach(filtered_products, function(fp){
@@ -158,7 +154,7 @@ app.factory('ProductsService'
             }
             else {}
             
-            //console.log(filtered_products);
+            console.log(filtered_products);
             return filtered_products;
         }
         
@@ -208,7 +204,7 @@ app.factory('ProductsService'
             console.log(price);
             price_min = minPrice;
             price_max = maxPrice;            
-        }
+        }                
 //-----------------------------------------------------------------------------------------------------------                
 //Запросы для категорий
         function getAllCategories() {//получает все категории
@@ -327,6 +323,7 @@ app.factory('ProductsService'
         service.getFiltersizeprod = function (){
            return sizes_filter;
         }
+                
         
 //-----------------------------------------------------------------------------------------------------------                        
 //Запросы для цвета
