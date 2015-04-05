@@ -60,7 +60,7 @@ class CategoriesProducts extends \yii\db\ActiveRecord
         return ($cat);
     }
     
-    public function getCategoriesProducts() {//получает категории для товара
+    public function getCategoriesProducts() {//получает все категории которым принадлежат товары
         
 //        $query = (new \yii\db\Query())
 //                ->select('c.id_category,

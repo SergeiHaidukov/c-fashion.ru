@@ -189,6 +189,105 @@ class Products extends \yii\db\ActiveRecord
         return $products_miniature;
     }
     
+    public function builUrl($param_name, $param_value)
+    {
+        parse_str($_SERVER['QUERY_STRING'], $query_param);        
+        $query_param_array = array();
+        $count = 0;
+        
+//        if($param_name == 'category')
+//        {
+//            $query_param_array['category'] = array();
+//        }
+//        else { $query_param_array['category'] = explode(",", $query_param['category']); }        
+                
+        $query_param_array['category'] = explode(",", $query_param['category']);
+        $query_param_array['colors'] = explode(",", $query_param['colors']);
+        $query_param_array['sizes'] = explode(",", $query_param['sizes']);
+        $query_param_array['product_main_photo'] = explode(",", $query_param['product_main_photo']);
+        $query_param_array['id_product'] = explode(",", $query_param['id_product']);
+                
+        if($param_name == 'back_home')
+        {
+            $query_param_array['id_product'] = array();
+            $query_param_array['product_main_photo'] = array();
+        }
+        
+        if($param_name != 'back_home')
+        {
+            foreach ($query_param_array[$param_name] as $key => $value) {
+                if ($value == $param_value)
+                {
+                    $count++;
+                    unset($query_param_array[$param_name][$key]);
+                }
+            }
+            if ($count == 0)
+            {
+                if(($param_name == 'category')||($param_name == 'product_main_photo')||($param_name == 'id_product'))
+                {
+                    $query_param_array[$param_name] = array();              
+                }
+                array_push($query_param_array[$param_name], $param_value);
+            }
+        }
+        $buil_url = '';
+        foreach ($query_param_array as $key => $qpv) {            
+            $qpv_string = implode(",", $qpv);
+            //var_dump($qpv);
+//            var_dump(htmlentities($output)); 
+//            $qpv_string = '';
+//            foreach ($qpv as $qpv_value) {
+//                if($qpv_string == '')
+//                {
+//                    $qpv_string = $qpv_value;
+//                }
+//                else 
+//                {
+//                    $qpv_string = $qpv_string.$qpv_value.",";
+//                }
+//            }
+
+            if ($qpv_string != '')
+            {                
+                if($buil_url != '')
+                {
+                    $buil_url = $buil_url."&".$key."=".$qpv_string;
+                }
+                else 
+                {
+                    $buil_url = $key."=".$qpv_string;
+                }
+            }
+        }
+        //var_dump(\yii\helpers\Url::home().'index.php?'.$buil_url);
+        switch ($param_name)
+        {
+            case 'id_product' : $base_url = '/site/productpage'; break;
+            case 'back_home' : $base_url = '/index.php'; break;
+            default : $base_url = parse_url(\yii\helpers\Url::to())['path']; break;
+        }        
+        
+//        if($param_name == 'id_product')
+//        {
+//            $base_url = 'site/productpage';           
+//        }
+//        else
+//        {
+//            $base_url = parse_url(\yii\helpers\Url::to())['path'];
+//        }
+        
+        
+        
+        $buil_url_array = array('url' => $base_url.'?'.$buil_url , 'is_url_param' => $count);
+        
+        //var_dump($buil_url_array);
+        
+        return $buil_url_array;
+        
+        //var_dump(\yii\helpers\Url::to(['/index.php', $buil_url]));
+    }
+            
     private function clearArray()
     {
         $clear_array = array();

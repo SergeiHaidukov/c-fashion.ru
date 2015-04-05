@@ -31,8 +31,9 @@ AppAsset::register($this);
                 </div>
             </div>-->
             <div class="row header-menu">
-                <div class="col-xs-12">                      
-                    <a class="btn btn-default col-xs-6" href="/#!/list">Каталог платьев</a>
+                <div class="col-xs-12">   
+                    <?php $products_model = new \app\models\Products(); ?>
+                    <a class="btn btn-default col-xs-6" href=<?php echo $products_model->builUrl('back_home', '1')['url']; ?>>Каталог платьев</a>
                     <a class="btn btn-default col-xs-6" href="/#!/contact" onclick="yaCounter28531641.reachGoal('contact_watch'); return true;">Наши контакты</a>
                 </div>
             </div>

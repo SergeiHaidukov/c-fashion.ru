@@ -53,14 +53,25 @@ class SiteController extends Controller
     {
         parse_str($_SERVER['QUERY_STRING'], $output);
         
-        $model = new \app\models\Products();
-        $products = $model->getFilteredProducts($output);
-        $products_filter = $model->getFilteredProducts($output);
+        $products_model = new \app\models\Products();
+        $products = $products_model->getFilteredProducts($output);
+        $categories_model = new \app\models\CategoriesProducts();
+        $categories = $categories_model->getCategoriesProducts();
+        $prodtuctstemplate_model = new \app\models\ProductsTemplate();
+        $sizes = $prodtuctstemplate_model->getSizesProducts();
+        $colors = $prodtuctstemplate_model->getColorsProducts();
+        
+        //var_dump($colors);
+        //$products_filter = $model->getFilteredProducts($output);
         
         return $this->render('index', [
             'products' => $products,
-            'output' => $output,
-            'products_filter' => $products_filter
+            'products_model' => $products_model,
+            'categories' => $categories,
+            'sizes' => $sizes,
+            'colors' => $colors,
+            //'output' => $output,
+            //'products_filter' => $products_filter
         ]);        
     }
 
@@ -107,9 +118,19 @@ class SiteController extends Controller
     }
     
     public function actionProductpage($id_product)
-    {
+    {        
+        parse_str($_SERVER['QUERY_STRING'], $query_param);
+        
+        $products_model = new \app\models\Products();
         $model = \app\models\Products::findOne($id_product);        
-        return $this->render('productpage', ['model' => $model]);
+        $product_images = $model->getImage($model->id_product);
+        $main_photo_name = explode(",", $query_param['product_main_photo'])[0];
+        return $this->render('productpage', [
+            'model' => $model,
+            'product_images' => $product_images,
+            'products_model' => $products_model,
+            'main_photo_name' => $main_photo_name,
+        ]);
     }
     
     public function actionProductslist()
