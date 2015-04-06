@@ -111,8 +111,8 @@ class ProductsController extends Controller
                 
                 $fileName = $image['file_name'];
             
-                $mode = \Imagine\Image\ImageInterface::THUMBNAIL_INSET;
-                    
+                $mode = \Imagine\Image\ImageInterface::THUMBNAIL_INSET;                                
+                
                 Image::thumbnail('@webroot/img/' .$fileName, 600, 600, $mode)
                 ->save(Yii::getAlias('@webroot/img/thumbnail/' .$fileName), ['quality' => 80]);                                        
 
@@ -151,14 +151,21 @@ class ProductsController extends Controller
                     else {$baseName = 'conf'.$i;}*/
                     $fileName = $baseName . '.' . $file->extension;                    
                     $file->saveAs('img/' .$fileName);
-                    $im = imagecreatefromjpeg('img/' .$fileName);                    
-                    imageinterlace($im, true);
-                    imagejpeg($im,'img/' .$fileName);
+//                    $im = imagecreatefromjpeg('img/' .$fileName);                    
+//                    imageinterlace($im, true);
+//                    imagejpeg($im,'img/' .$fileName);
                     
                     $mode = \Imagine\Image\ImageInterface::THUMBNAIL_INSET;
                     
-                    Image::thumbnail('@webroot/img/' .$fileName, 200, 200, $mode)
-                    ->save(Yii::getAlias('@webroot/img/thumbnail/' .$fileName), ['quality' => 80]);                                        
+                    $width_new = 600;
+                    $height_new = 600;
+                    $image_info = getimagesize('img/' .$fileName);
+                    
+                    if($image_info[0] < $width_new) { $width_new = $image_info[0]; $height_new = $image_info[0]; }
+                    if($image_info[1] < $height_new) { $height_new = $image_info[1]; $width_new = $image_info[1]; }
+                    
+                    Image::thumbnail('@webroot/img/' .$fileName, $width_new, $height_new, $mode)
+                    ->save(Yii::getAlias('@webroot/img/thumbnail/' .$fileName), ['quality' => 90]);                                        
                     
                     $picturesmodel = new \app\models\Pictures();
                     $picprodmodel = new \app\models\PicturesProducts();

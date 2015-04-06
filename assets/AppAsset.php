@@ -24,7 +24,7 @@ class AppAsset extends AssetBundle
     public $js = [
 //        'js/angular.min.js',
 //        'js/ui-bootstrap-tpls-0.12.0.min.js',
-//        'js/app.js',        
+//        'js/app.js',
 //        'js/controllers/ProductsController.js',
 //        'js/services/PoductsService.js',
 //        'js/controllers/CategoriesController.js',

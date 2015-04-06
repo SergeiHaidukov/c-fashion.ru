@@ -12,6 +12,19 @@ $this->params['breadcrumbs'][] = ['label' => 'Products', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id_product]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
+<script type="text/javascript" src="/js/angular.min.js"></script>
+<script type="text/javascript" src="/js/ui-bootstrap-tpls-0.12.0.min.js"></script>
+<script type="text/javascript" src="/js/app.js"></script>
+<script type="text/javascript" src="/js/controllers/ProductsController.js"></script>
+<script type="text/javascript" src="/js/services/PoductsService.js"></script>
+<script type="text/javascript" src="/js/controllers/CategoriesController.js"></script>
+<script type="text/javascript" src="/js/services/CategoriesService.js"></script>
+<script type="text/javascript" src="/js/angular-cookies.min.js"></script>
+<script type="text/javascript" src="/js/angular-route.min.js"></script>
+<script type="text/javascript" src="/js/angular-material.min.js"></script>
+<script src="//cdn.jsdelivr.net/hammerjs/2.0.4/hammer.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular-animate.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular-aria.min.js"></script>
 <div class="products-update" ng-app="cfashion">
 
     <h1><?= Html::encode($this->title) ?></h1>

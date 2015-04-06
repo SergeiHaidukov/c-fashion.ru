@@ -4,21 +4,21 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 //$this->title = 'Product Page';
 //$this->params['breadcrumbs'][] = $this->title;
-echo \yii\widgets\Breadcrumbs::widget([    
-    'links' => [
-        [
-            'label' => 'Products List',
-            'url' => ['/site/productslist'],            
-        ],        
-        ['label' => 'Product Page']
-    ],
-]);
+//echo \yii\widgets\Breadcrumbs::widget([    
+//    'links' => [
+//        [
+//            'label' => 'Products List',
+//            'url' => ['/site/productslist'],            
+//        ],        
+//        ['label' => 'Product Page']
+//    ],
+//]);
 ?>
+<a class="btn btn-info col-xs-12" href=<?php echo $products_model->builUrl('back_home', '1')['url']; ?>><h3>Назад</h3></a>
 <div itemscope itemtype="http://schema.org/Product">
-<div class="container">
     <div class="row productpage">
         <div class="col-xs-12 productpage-text">
-            <div class="row">
+            
                 <div class="col-xs-6 text-center">
                     <h1 itemprop="name"><?php echo $model->name; ?></h1>
                 </div>
@@ -28,18 +28,18 @@ echo \yii\widgets\Breadcrumbs::widget([
                             
                     </div>
                 </div>
-            </div>
-            <div class="row">
+            
+            
                 <div class="col-xs-12 text-center">
-                    <h4 itemprop="description" ng-bind-html="sce.trustAsHtml(single_product.description)"></h4>
+                    <h4 itemprop="description" <?php echo $model->description; ?>></h4>
                 </div>
-            </div>
-            <div class="row">
+            
+            
                 <div class="col-xs-12 phone_number text-center">
                     <h3>По всем вопросам звоните, пожалуйста, по телефону <strong>+7-960-885-68-05</strong> Екатерина</h3>
                     <h3>Или пишите на email: gorbunova-ekaterina@yandex.ru</h3>
                 </div>
-            </div>
+            
         </div>
         <div class="col-xs-12 productpage-foto">            
             <div class="col-sm-8 product-foto-main">
@@ -63,37 +63,5 @@ echo \yii\widgets\Breadcrumbs::widget([
                 </div>
             </div>
         </div> 
-        
-        <div class="col-md-7 productpage-foto">
-                <div class="row product-foto-main">
-                    <?php
-                    $files = $model->getImage($model->id_product);
-                    var_dump($files);
-                    $filename = $files[0];
-                    ?>
-                    <img src="<?php echo (yii\helpers\Url::to('@web/img/'.$filename['file_name'], true)); ?>" class="img-responsive" >
-                </div>
-                <div class="row">        
-                    <?php                    
-                     foreach ($files as $filename)
-                     {?>
-                      <div class="col-md-3">
-                        <div class="thumbnail">
-                          <img src= "<?php echo (yii\helpers\Url::to('@web/img/thumbnail/'.$filename['file_name'], true)); ?>" class="img-responsive">
-                          <!--<div class="caption">
-                            <h6><?php// echo ($filename['file_name']) ?></h6>          
-                            <p><a href=<?php// echo (yii\helpers\Url::toRoute(['products/delpicprod', 'id_product'=>$model->id_product, 'id_picture'=> $filename['id_picture']])) ?> class="btn btn-danger btn-xs" role="button">Удалить</a></p>
-                          </div>-->
-                        </div>
-                      </div>
-                    <?php 
-                     }
-                    ?>                              
-                </div>
-        </div>
-        <div class="col-md-5 productpage-text maket">
-            
-        </div>
     </div>
-</div>
 </div>

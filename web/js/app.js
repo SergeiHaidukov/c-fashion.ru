@@ -5,25 +5,25 @@ app.run(function(){
     console.log("::use::run");
   });
 
-app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
-    $routeProvider.when('/list', {
-        templateUrl: 'partials/list.html',        
-        controller: 'ProductsController'
-    });    
-    $routeProvider.when('/page/:id_product', {
-        templateUrl: 'partials/page.html',
-        controller: 'ProductsController'
-    });        
-    $routeProvider.when('/contact', {
-        templateUrl: 'partials/contact.html',        
-    });
-    $routeProvider.otherwise({
-        redirectTo: '/list'
-    });
-    //$locationProvider.html5Mode({enabled: true, requireBase: false});
-    //$locationProvider.html5Mode(true);
-    $locationProvider.hashPrefix('!');
-}]);
+//app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+//    $routeProvider.when('/list', {
+//        templateUrl: 'partials/list.html',        
+//        controller: 'ProductsController'
+//    });    
+//    $routeProvider.when('/page/:id_product', {
+//        templateUrl: 'partials/page.html',
+//        controller: 'ProductsController'
+//    });        
+//    $routeProvider.when('/contact', {
+//        templateUrl: 'partials/contact.html',        
+//    });
+//    $routeProvider.otherwise({
+//        redirectTo: '/list'
+//    });
+//    //$locationProvider.html5Mode({enabled: true, requireBase: false});
+//    //$locationProvider.html5Mode(true);
+//    $locationProvider.hashPrefix('!');
+//}]);
 
 //angular.element(document).ready(function(){        
 //    console.log("::prepare");

@@ -82,7 +82,8 @@ class Products extends \yii\db\ActiveRecord
                 ->where(['pp.is_miniature' => 1/*, 'p.isview' => 1*/ ])
                 ->from('Products p')
                 ->leftJoin('Pictures_Products pp', 'p.id_product = pp.id_product')
-                ->leftJoin('Pictures p1', 'pp.id_picture = p1.id_picture');
+                ->leftJoin('Pictures p1', 'pp.id_picture = p1.id_picture')
+                ->orderBy('p.id_product DESC');
             $command = $query->createCommand();
             $this->products_miniature = $command->queryAll();
         }
