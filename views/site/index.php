@@ -8,7 +8,7 @@ $this->title = 'Магазин "Contrast fashion"';
     <div class="row">
         <div class="col-md-3 col-sm-3 col-sm-push-9 sidemenu">
             <div class="row">
-                <a class="btn btn-default cat-set-button col-xs-12" href="/index.php" >Очистить фильтры</a>
+                <a class="btn btn-danger cat-set-button col-xs-12" href="/index.php" >Очистить фильтры</a>
                 <div class="col-xs-12">
                     <h4>Категории</h4>
                     <div class="">
@@ -50,23 +50,25 @@ $this->title = 'Магазин "Contrast fashion"';
         <div class="col-md-9 col-sm-9 col-sm-pull-3 productslist">
             <div class="row text-center"><h1><?php echo $this_category_name; ?> </h1></div>
             <?php
-            foreach ($products as $pr) {
-            ?>
-
-                    <div class="col-md-4 col-sm-6 col-xs-12 singleproduct">            
-                        <a class="product-miniature" href="">
+            if(!empty($products)){ foreach ($products as $pr) {
+            ?>                    
+                    <div class="col-md-4 col-sm-6 col-xs-12 singleproduct">
+                        <div id="product_<?php echo $pr['id_product'] ?>"></div>
+                        <div class="product-miniature" href="">
                             <a href=<?php echo $products_model->builUrl('id_product', $pr['id_product'])['url']; ?> ><img src="/img/thumbnail/<?php echo $pr["file_name"];  ?>" class="img-responsive img-rounded list-img-thumbnail col-xs-12"></a>
-                        </a>
+                        </div>
                         <span class="col-xs-12 text-center">Цена: <?php echo $pr["price"];  ?> руб.</span>
                             <!--<a class="btn btn-info btn-xs product-view" href="/#!/page/{{p.id_product}}">Смотреть</a>-->
                     </div>        
 
             <?php    
-            }
+            }}
+            else { echo '<h3>К сожалению по вашему запросу ничего не найдено<h3>'; }
             ?>
         </div>
     </div>
 </div>
+<script>location.hash =  </script>
     
 <!--<div ng-app="cfashion">
     <div class="site-index">        

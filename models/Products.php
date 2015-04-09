@@ -111,13 +111,13 @@ class Products extends \yii\db\ActiveRecord
     
     public function getFilteredProducts($query_param) 
     {                
-        if (empty($this->products_filter))
-            {
-               $this->products_filter = $this->getProductsFilter();
-            }
+//        if (empty($this->products_filter))
+//            {
+//               $this->products_filter = $this->getProductsFilter();
+//            }
         
-        $filtered_products = $this->products_filter;
-        $filtered_products_tmp = array();        
+//        $filtered_products = $this->products_filter;
+        $filtered_products_tmp = array();
           
             $query = (new \yii\db\Query())
             ->select('p.id_product,
@@ -158,6 +158,7 @@ class Products extends \yii\db\ActiveRecord
                 if($count == 0){unset($products_miniature[$key]);}
             }
         }
+        else { $products_miniature = array(); }
         
         
 //        $products_miniature = $this->getProductsMiniture();
@@ -265,7 +266,7 @@ class Products extends \yii\db\ActiveRecord
         switch ($param_name)
         {
             case 'id_product' : $base_url = '/site/productpage'; break;
-            case 'back_home' : $base_url = '/index.php'; break;
+            case 'back_home' : $base_url = '/index.php'; $hash_text = "#product_".$query_param['id_product']; break;
             default : $base_url = parse_url(\yii\helpers\Url::to())['path']; break;
         }        
         
@@ -280,7 +281,7 @@ class Products extends \yii\db\ActiveRecord
         
         
         
-        $buil_url_array = array('url' => $base_url.'?'.$buil_url , 'is_url_param' => $count);
+        $buil_url_array = array('url' => $base_url.'?'.$buil_url.$hash_text , 'is_url_param' => $count);
         
         //var_dump($buil_url_array);
         

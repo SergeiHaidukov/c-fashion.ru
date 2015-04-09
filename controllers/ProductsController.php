@@ -105,16 +105,23 @@ class ProductsController extends Controller
             set_time_limit(0);
             foreach ($images as $image)
             {
-                $im = imagecreatefromjpeg('img/' .$image['file_name']);
-                imageinterlace($im, true);
-                imagejpeg($im,'img/' .$image['file_name']);
+//                $im = imagecreatefromjpeg('img/' .$image['file_name']);
+//                imageinterlace($im, true);
+//                imagejpeg($im,'img/' .$image['file_name']);
                 
                 $fileName = $image['file_name'];
             
-                $mode = \Imagine\Image\ImageInterface::THUMBNAIL_INSET;                                
-                
-                Image::thumbnail('@webroot/img/' .$fileName, 600, 600, $mode)
-                ->save(Yii::getAlias('@webroot/img/thumbnail/' .$fileName), ['quality' => 80]);                                        
+                $mode = \Imagine\Image\ImageInterface::THUMBNAIL_INSET;
+                    
+                    $width_new = 600;
+                    $height_new = 600;
+                    $image_info = getimagesize('img/' .$fileName);
+                    
+                    if($image_info[0] < $width_new) { $width_new = $image_info[0]; $height_new = $image_info[0]; }
+                    if($image_info[1] < $height_new) { $height_new = $image_info[1]; $width_new = $image_info[1]; }
+                    
+                    Image::thumbnail('img/' .$fileName, $width_new, $height_new, $mode)
+                    ->save(Yii::getAlias('@webroot/img/thumbnail/' .$fileName), ['quality' => 90]);
 
                 $picturesmodel = new \app\models\Pictures();
                 $picprodmodel = new \app\models\PicturesProducts();
