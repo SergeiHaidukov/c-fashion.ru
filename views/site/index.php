@@ -4,7 +4,7 @@ $this->title = 'Магазин "Contrast fashion"';
 
 //var_dump($products_filter);
 ?>
-<div class="container">
+
     <div class="row">
         <div class="col-md-3 col-sm-3 col-sm-push-9 sidemenu">
             <div class="row">
@@ -63,12 +63,11 @@ $this->title = 'Магазин "Contrast fashion"';
 
             <?php    
             }}
-            else { echo '<h3>К сожалению по вашему запросу ничего не найдено<h3>'; }
+            else { echo '<h3>К сожалению по вашему запросу ничего не найдено</h3>'; }
             ?>
         </div>
     </div>
-</div>
-<script>location.hash =  </script>
+
     
 <!--<div ng-app="cfashion">
     <div class="site-index">        

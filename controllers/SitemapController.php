@@ -36,8 +36,8 @@ class SitemapController extends Controller
         {            
             //$sitemap = simplexml_load_file("sitemap.xml");            
             $url = $urlset->appendChild(new \DOMElement("url"));
-            $url->appendChild(new \DOMElement("loc","http://c-fashion.ru/#!/page/".$prod['id_product']));
-            $url->appendChild(new \DOMElement("changefreq", "monthly"));
+            $url->appendChild(new \DOMElement("loc","http://c-fashion.ru/site/productpage?id_product=".$prod['id_product']));
+            $url->appendChild(new \DOMElement("changefreq", "weekly"));
             $url->appendChild(new \DOMElement("priority", "0.50"));
         }
         //var_dump($prodid);

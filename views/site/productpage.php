@@ -24,14 +24,21 @@ use yii\helpers\Html;
                 </div>
                 <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                     <div class="col-xs-6 text-center">
-                        <h2>Цена: <span itemprop="price"><?php echo $model->price; ?></span> <span itemprop="priceCurrency">RUB</span></h2>
-                            
+                        <h2>Цена: <span itemprop="price"><?php echo $model->price; ?></span> <span itemprop="priceCurrency">RUB</span></h2>                            
                     </div>
                 </div>
-            
-            
                 <div class="col-xs-12 text-center">
-                    <h4 itemprop="description" <?php echo $model->description; ?>></h4>
+                    <h2>Цвета и размеры</h2>
+                    <?php 
+                    foreach ($products_template_array as $key => $pta) {
+                    ?>
+                    <a class="btn btn-default color-product-view btn-sm" style="border-color:<?php echo $pta['color_code']; ?>;" ><?php echo $pta['color_name'].' '.$pta['size_name']?></a>
+                    <?php
+                    }
+                    ?>
+                </div>                       
+                <div class="col-xs-12 text-center">
+                    <h4 itemprop="description" <?php echo $model->description; ?></h4>
                 </div>
             
             
@@ -55,11 +62,7 @@ use yii\helpers\Html;
                     </div>
                 <?php
                 }
-                ?>
-                <div ng-repeat="pp in single_product_images">
-                    <div class="col-xs-6 col-sm-12 thumbnail-btn">
-                        <img itemprop="image" src="/img/thumbnail/{{pp.file_name}}" alt="" class="btn img-responsive img-rounded col-xs-12" ng-click="setmainpictures(pp.id_picture)">
-                    </div>
+                ?>                
                 </div>
             </div>
         </div> 

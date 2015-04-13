@@ -46,7 +46,7 @@ class ProductsTemplate extends \yii\db\ActiveRecord
         ];
     }
     
-    public function getColorsProduct($id_product) {//получает цвета для товара
+    public function getColorsProduct($id_product) {//получает цвета и размеры для товара
         
         $query = (new \yii\db\Query())
                 ->select('*')
@@ -54,7 +54,8 @@ class ProductsTemplate extends \yii\db\ActiveRecord
                 ->from('Colors c')
                 ->leftJoin('Products_Template pt', 'c.id_color = pt.id_color')
                 ->leftJoin('Sizes s', 'pt.id_size = s.id_size')
-                ->leftJoin('Products p', 'pt.id_product = p.id_product');                
+                ->leftJoin('Products p', 'pt.id_product = p.id_product')
+                ->orderBy('c.color_name, s.size_name');
         $command = $query->createCommand();
         $colors = $command->queryAll();
                 

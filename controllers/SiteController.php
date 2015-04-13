@@ -125,11 +125,14 @@ class SiteController extends Controller
         $model = \app\models\Products::findOne($id_product);        
         $product_images = $model->getImage($model->id_product);
         $main_photo_name = explode(",", $query_param['product_main_photo'])[0];
+        $products_template_model = new \app\models\ProductsTemplate();
+        $products_template_array = $products_template_model->getColorsProduct($id_product);
         return $this->render('productpage', [
             'model' => $model,
             'product_images' => $product_images,
             'products_model' => $products_model,
             'main_photo_name' => $main_photo_name,
+            'products_template_array' => $products_template_array,
         ]);
     }
     
