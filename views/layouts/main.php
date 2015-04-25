@@ -17,27 +17,37 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>    
-    <title>Мы хотим выбрать для Вас лучшее вечернее платье.</title>
+    <title>Здесь одевают на праздник! Нарядные платья из турецких и итальянских тканей - большой выбор и выгодные цены!</title>
     <?php $this->head() ?>
 </head>
 <body>
 
 <?php $this->beginBody() ?>
-    <div class="wrap">        
-        <div class="container header-logo">            
+    <div class="wrap">                    
+        <a href="/site/kupon" class="sale-button btn btn-danger"> >>> Получить скидку <<< </a>
+        <div class="">           
+            <?php $products_model = new \app\models\Products(); ?>
+            <a href="<?php echo $products_model->builUrl('back_home', '1')['url']; ?>" ><img src="/images/design/logo.jpg" alt="" class="img-responsive header-logo"></a>
 <!--            <div class="row">
                 <div class="col-xs-12 text-center">
                     <h2>Мы хотим выбрать для Вас лучшее вечернее платье.</h2>
                 </div>
             </div>-->
+        </div>
+        <div class="container">
             <div class="row header-menu">
-                <div class="">   
-                    <?php $products_model = new \app\models\Products(); ?>
+                <div class="">                       
                     <a class="btn btn-default col-xs-6" href=<?php echo $products_model->builUrl('back_home', '1')['url']; ?>>Каталог платьев</a>
                     <a class="btn btn-default col-xs-6" href="/site/contact" onclick="yaCounter28531641.reachGoal('contact_watch'); return true;">Наши контакты</a>
                 </div>
-            </div>
+            </div>            
         </div>
+        <div class="container">
+            <div class="row header-text text-justify text-primary">                
+                <h3><em>Здесь одевают на праздник! Нарядные платья из турецких и итальянских тканей - большой выбор и выгодные цены!</em></h3>
+            </div>
+        </div>    
+        
 
         <?php
         if (!Yii::$app->user->isGuest)

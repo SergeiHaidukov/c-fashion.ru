@@ -221,12 +221,15 @@ a.desc:after {
 }
 
 .header-logo{
-    background-image: url("/images/design/logo.jpg");
-    background-size: cover;    
+    //background-image: url("/images/design/logo.jpg");
+    //background-size: cover;    
+    width: 100%;
+    max-width: 1366px;
+    margin: 0px auto;
 }
 
 .header-menu{
-    margin-top: 10%;
+    //margin-top: 10%;
 }
 
 .color-product-view{    
@@ -244,4 +247,28 @@ a.desc:after {
     position: fixed;
     bottom:0px;
     left:0px;
+}
+
+.header-text{
+    //font-style: italic;
+}
+
+.old-price-text{
+    color: red;
+}
+
+.sale-button{
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    background-color: red;
+    opacity: 0.6;
+    z-index: 1000;
+    height: 34px;
+    font-size: 24px;
+    padding: 0px;
+}
+
+.kupon{
+    margin: 0px auto;
 }

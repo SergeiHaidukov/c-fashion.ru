@@ -57,6 +57,7 @@ use yii\helpers\Html;
                 <?php
                 foreach ($product_images as $key => $primg) {
                 ?>
+                <div id="main_photo"></div>
                     <div class="col-xs-6 col-sm-12 thumbnail-btn">
                         <a href=<?php echo $products_model->builUrl('product_main_photo', $primg['file_name'])['url'];?>><img itemprop="image" src="/img/thumbnail/<?php echo $primg['file_name']; ?>" alt="" class="btn img-responsive img-rounded col-xs-12"></a>
                     </div>

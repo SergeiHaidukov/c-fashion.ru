@@ -267,6 +267,10 @@ class Products extends \yii\db\ActiveRecord
         {
             case 'id_product' : $base_url = '/site/productpage'; break;
             case 'back_home' : $base_url = '/index.php'; $hash_text = "#product_".$query_param['id_product']; break;
+            case 'product_main_photo' : $hash_text = "#main_photo"; break;
+            case 'category' : $hash_text = "#top"; break;
+            case 'sizes' : $hash_text = "#top"; break;
+            case 'colors' : $hash_text = "#top"; break;
             default : $base_url = parse_url(\yii\helpers\Url::to())['path']; break;
         }        
         
