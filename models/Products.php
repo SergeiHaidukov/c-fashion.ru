@@ -38,8 +38,9 @@ class Products extends \yii\db\ActiveRecord
             [['price', 'oldprice'], 'number'],
             [['isview'], 'integer'],
             [['description'], 'string'],
+            [['create_date', 'last_update'], 'safe'],
             [['name'], 'string', 'max' => 50],
-            [['url'], 'string', 'max' => 255],
+            [['url'], 'string', 'max' => 255],            
             [['file'], 'file', 'extensions' => ['jpg'], 'maxFiles' => 100]
         ];
     }
@@ -57,6 +58,8 @@ class Products extends \yii\db\ActiveRecord
             'url' => 'Url',
             'isview' => 'Isview',
             'description' => 'Description',
+            'create_date' => 'Create Date',
+            'last_update' => 'Last Update',
         ];
     }
     

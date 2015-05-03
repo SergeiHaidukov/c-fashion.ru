@@ -26,8 +26,16 @@ class ProductsController extends Controller
                 'actions' => [
                     'delete' => ['post'],
                 ],
-            ],
-        ];
+            ],            
+//            'timestamp' => [
+//            'class' => \yii\behaviors\TimestampBehavior::className(),
+//            'attributes' => [
+//                \yii\db\BaseActiveRecord::EVENT_BEFORE_INSERT => ['create_date', 'last_update'],
+//                \yii\db\BaseActiveRecord::EVENT_BEFORE_UPDATE => ['last_update'],
+//            ],
+//            'value' => new \yii\db\Expression('NOW()'),
+//            ],
+        ];        
     }
 
     /**
@@ -76,8 +84,8 @@ class ProductsController extends Controller
             {
                $this->redirect(array('/login'));
             }
-        $model = new Products();
-
+        $model = new Products();        
+        $model->create_date = new \yii\db\Expression('NOW()');
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['update', 'id' => $model->id_product]);
         } else {
@@ -146,7 +154,7 @@ class ProductsController extends Controller
                $this->redirect(array('/login'));
             }
         $model = $this->findModel($id);
-        
+        $model->last_update = new \yii\db\Expression('NOW()');
         if (Yii::$app->request->isPost) {
             $model->file = UploadedFile::getInstances($model, 'file');
 
@@ -182,7 +190,7 @@ class ProductsController extends Controller
                     
                     $picprodmodel->id_picture = $picturesmodel->id_picture;
                     $picprodmodel->id_product = $model->id_product;
-                    $picprodmodel->save();
+                    $picprodmodel->save();                    
                     //$i++;
                     
                 }
