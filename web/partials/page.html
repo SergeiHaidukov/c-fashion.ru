@@ -43,12 +43,12 @@
                 <img src="<?php echo (yii\helpers\Url::to('@web/img/'.$filename['file_name'], true)); ?>" class="img-responsive" >
             </div>-->
             <div class="col-sm-8 product-foto-main">
-                <img itemprop="image" src="/img/{{single_product_image_main.file_name}}" alt="" class="img-responsive img-rounded col-xs-12">
+                <img itemprop="image" ng-src="http://c-fashion.ru/img/{{single_product_image_main.file_name}}" alt="" class="img-responsive img-rounded col-xs-12">
             </div>
             <div class="col-sm-4">
                 <div ng-repeat="pp in single_product_images">
                     <div class="col-xs-6 col-sm-12 thumbnail-btn">
-                        <img itemprop="image" src="/img/thumbnail/{{pp.file_name}}" alt="" class="btn img-responsive img-rounded col-xs-12" ng-click="setmainpictures(pp.id_picture)">
+                        <img itemprop="image" ng-src="http://c-fashion.ru/img/thumbnail/{{pp.file_name}}" alt="" class="btn img-responsive img-rounded col-xs-12" ng-click="setmainpictures(pp.id_picture)">
                     </div>
                 </div>
             </div>

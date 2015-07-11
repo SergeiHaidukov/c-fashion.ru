@@ -17,14 +17,15 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>    
-    <title>Здесь одевают на праздник! Нарядные платья из турецких и итальянских тканей - большой выбор и выгодные цены!</title>
+    <?php// $this->title = 'Здесь одевают на праздник! Нарядные платья из турецких и итальянских тканей - большой выбор и выгодные цены!' ?>
+    <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
 <body>
 
 <?php $this->beginBody() ?>
     <div class="wrap">                    
-        <a href="/site/kupon" class="sale-button btn btn-danger"> >>> Получить скидку <<< </a>
+        <!--<a href="/site/kupon" class="sale-button btn btn-danger"> >>> Получить скидку <<< </a>-->
         <div class="">           
             <?php $products_model = new \app\models\Products(); ?>
             <a href="<?php echo $products_model->builUrl('back_home', '1')['url']; ?>" ><img src="/images/design/logo.jpg" alt="" class="img-responsive header-logo"></a>

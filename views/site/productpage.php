@@ -2,7 +2,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-//$this->title = 'Product Page';
+$this->title = $model->name;
 //$this->params['breadcrumbs'][] = $this->title;
 //echo \yii\widgets\Breadcrumbs::widget([    
 //    'links' => [
@@ -68,4 +68,3 @@ use yii\helpers\Html;
             </div>
         </div> 
     </div>
-</div>

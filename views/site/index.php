@@ -1,6 +1,6 @@
 <?php
 /* @var $this yii\web\View */
-$this->title = 'Магазин "Contrast fashion"';
+$this->title = "131231231";// $this_category_name;
 
 //var_dump($products_filter);
 ?>
@@ -16,8 +16,13 @@ $this->title = 'Магазин "Contrast fashion"';
                         foreach ($categories as $cat) {
                           $buil_url_array = $products_model->builUrl('category', $cat['id_category']);
                         ?>                    
-                        <a class="btn btn-default cat-set-button col-xs-12 <?php if($buil_url_array['is_url_param'] > 0){ echo 'btn-warning'; } ?>" href=<?php echo $buil_url_array['url']; ?> > <?php echo $cat['name']; ?><?php if($buil_url_array['is_url_param'] > 0){ $this_category_name = $cat['name']; ?> <i class="glyphicon glyphicon-ok"></i> <?php } ?></a>                    
+                        <a class="btn btn-default cat-set-button col-xs-12 <?php if($buil_url_array['is_url_param'] > 0){ echo 'btn-warning'; } ?>" href=<?php echo $buil_url_array['url']; ?> > <?php echo $cat['name']; ?><?php if($buil_url_array['is_url_param'] > 0){ $this_category_name = $cat['name']; ?> <i class="glyphicon glyphicon-ok"></i> <?php } ?></a>                        
                         <?php    
+                        if($this_category_name != '')
+                        {                        
+                            $this->title = $this_category_name;
+                        }
+                        else {$this->title = "Здесь одевают на праздник! Нарядные платья из турецких и итальянских тканей - большой выбор и выгодные цены!";}
                         }
                         ?>                    
                     </div>

@@ -1,2 +1,12 @@
 User-agent: *
-Disallow:
+Disallow: /assets
+Disallow: /css
+Disallow: /js
+			
+User-agent: Yandex
+Disallow: /assets
+Disallow: /css
+Disallow: /js
+Clean-param: sizes&colors
+Host: c-fashion.ru
+Sitemap: http://c-fashion.ru/sitemap.xml
