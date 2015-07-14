@@ -9,6 +9,7 @@ use Yii;
  *
  * @property integer $id_category
  * @property string $name
+ * @property string $translit_name
  */
 class Categories extends \yii\db\ActiveRecord
 {
@@ -27,7 +28,7 @@ class Categories extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['name'], 'string', 'max' => 50]
+            [['name', 'translit_name'], 'string', 'max' => 50]
         ];
     }
 
@@ -39,6 +40,7 @@ class Categories extends \yii\db\ActiveRecord
         return [
             'id_category' => 'Id Category',
             'name' => 'Name',
+            'translit_name' => 'Translit Name',
         ];
-    }    
+    }
 }

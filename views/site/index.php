@@ -7,17 +7,18 @@ $this->title = "131231231";// $this_category_name;
     <div class="row">
         <div class="col-md-3 col-sm-3 col-sm-push-9 sidemenu">
             <div class="row">
-                <a class="btn btn-danger cat-set-button col-xs-12" href="/index.php" >Показать все платья</a>
+                <a class="btn btn-danger cat-set-button col-xs-12" href=<?php echo (yii\helpers\Url::toRoute(['site/clearsessionparam'])); ?>> <!--"/index.php"-->Показать все платья</a>
                 <div class="col-xs-12">
                     <h4>Категории</h4>
                     <div class="">
                         <?php
                         $this_category_name = '';
-                        foreach ($categories as $cat) {
-                          $buil_url_array = $products_model->builUrl('category', $cat['id_category']);
+                        foreach ($categories as $cat) {                          
                         ?>                    
-                        <a class="btn btn-default cat-set-button col-xs-12 <?php if($buil_url_array['is_url_param'] > 0){ echo 'btn-warning'; } ?>" href=<?php echo $buil_url_array['url']; ?> > <?php echo $cat['name']; ?><?php if($buil_url_array['is_url_param'] > 0){ $this_category_name = $cat['name']; ?> <i class="glyphicon glyphicon-ok"></i> <?php } ?></a>                        
+                        <a class="btn btn-default cat-set-button col-xs-12 <?php if($cat['id_category'] == $current_category_id){ echo 'btn-warning'; } ?>" 
+                           href=<?php echo (yii\helpers\Url::to(['/'.$cat[translit_name]])); // echo $buil_url_array['url']; ?> > <?php echo $cat['name']; ?><?php if($cat['id_category'] == $current_category_id){ $this_category_name = $cat['name']; ?> <i class="glyphicon glyphicon-ok"></i> <?php } ?></a>
                         <?php    
+                        //var_dump($current_category_id);
                         if($this_category_name != '')
                         {                        
                             $this->title = $this_category_name;
@@ -31,10 +32,21 @@ $this->title = "131231231";// $this_category_name;
                     <h4>Размеры</h4>
                     <?php
                     foreach ($sizes as $sz) {
-                        $buil_url_array = $products_model->builUrl('sizes', $sz['id_size']);
+                        $check_size = 0;
+                        if(is_array($current_sizes_id))
+                        {
+                            foreach ($current_sizes_id as $currsize)
+                            {    
+                                if($sz['id_size'] == $currsize)
+                                {
+                                    $check_size = 1;
+                                }
+                            }
+                        }
+                        //$buil_url_array = $products_model->builUrl('sizes', $sz['id_size']);
                     ?>
-                        <a class="btn btn-default sizes-set-button <?php if($buil_url_array['is_url_param'] > 0){ echo 'btn-warning'; } ?> " href=<?php echo $buil_url_array['url']; ?>><?php echo $sz['size_name']; ?><?php if($buil_url_array['is_url_param'] > 0){ ?> <i class="glyphicon glyphicon-ok"></i> <?php } ?></a>
-                    <?php    
+                        <a class="btn btn-default sizes-set-button <?php if($check_size == 1){ echo 'btn-warning'; } ?> " href=<?php echo (yii\helpers\Url::toRoute(['site/setsessionparam', 'param_name'=>'sizes', 'param_value'=> $sz['id_size']])); //echo $buil_url_array['url']; ?>><?php echo $sz['size_name']; ?><?php if($check_size == 1){ ?> <i class="glyphicon glyphicon-ok"></i> <?php } ?></a>
+                    <?php                        
                     }
                     ?>
                 </div>
@@ -42,9 +54,20 @@ $this->title = "131231231";// $this_category_name;
                     <h4>Цвета</h4>
                     <?php
                     foreach ($colors as $col) {
-                        $buil_url_array = $products_model->builUrl('colors', $col['id_color']);
+                        $check_color = 0;
+                        if(is_array($current_colors_id))
+                        {
+                            foreach ($current_colors_id as $currcol)
+                            {    
+                                if($col['id_color'] == $currcol)
+                                {
+                                    $check_color = 1;
+                                }
+                            }
+                        }
+                        //$buil_url_array = $products_model->builUrl('colors', $col['id_color']);
                     ?>
-                        <a class="btn btn-default color-set-button <?php if($buil_url_array['is_url_param'] > 0){ echo 'btn-warning'; } ?>" style="border-color:<?php echo $col['color_code'] ?>;" href=<?php echo $buil_url_array['url']; ?>><?php echo $col['color_name']; ?><?php if($buil_url_array['is_url_param'] > 0){ ?> <i class="glyphicon glyphicon-ok"></i> <?php } ?></a>
+                        <a class="btn btn-default color-set-button <?php if($check_color == 1){ echo 'btn-warning'; } ?>" style="border-color:<?php echo $col['color_code'] ?>;" href=<?php echo (yii\helpers\Url::toRoute(['site/setsessionparam', 'param_name'=>'colors', 'param_value'=> $col['id_color']])); //echo $buil_url_array['url']; ?>><?php echo $col['color_name']; ?><?php if($check_color == 1){ ?> <i class="glyphicon glyphicon-ok"></i> <?php } ?></a>
                     <?php    
                     }
                     ?>

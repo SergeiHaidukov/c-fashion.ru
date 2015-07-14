@@ -14,7 +14,7 @@ $this->title = $model->name;
 //    ],
 //]);
 ?>
-<a class="btn btn-info col-xs-12" href=<?php echo $products_model->builUrl('back_home', '1')['url']; ?>><h3>Назад</h3></a>
+<a class="btn btn-info col-xs-12" href=<?php echo (yii\helpers\Url::to(['/'.$cat_translit_name]).'#product_'.$model->id_product); //echo $products_model->builUrl('back_home', '1')['url']; ?>><h3>Назад</h3></a>
 <div itemscope itemtype="http://schema.org/Product">
     <div class="row productpage">
         <div class="col-xs-12 productpage-text">

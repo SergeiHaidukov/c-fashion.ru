@@ -49,7 +49,11 @@ $config = [
         'showScriptName' => false,
         'rules' => [
                         '' => 'site/index',
+                        '/<category_translit_name>'=>'site/index',
                         'login' => 'site/login',
+                        '<controller:\w+>/<id:\d+>'=>'<controller>/view',
+                        '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
+                        '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
                         ['class' => 'yii\rest\UrlRule', 'controller' => ['api/products','api/categories','api/categoriesproducts','api/colors','api/colorsproducts','api/sizes','api/sizesproducts','api/productstemplate'],  'pluralize'=>false]
                     ],
         ],
@@ -57,10 +61,11 @@ $config = [
     'params' => $params,
 ];
 
-if (YII_ENV_DEV) {
+if (!YII_ENV_TEST) {
     // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';
-    $config['modules']['debug'] = 'yii\debug\Module';
+    $config['modules']['debug']['class'] = 'yii\debug\Module';
+    $config['modules']['debug']['allowedIPs'] = ['*'];
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = 'yii\gii\Module';

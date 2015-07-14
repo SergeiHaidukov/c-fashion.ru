@@ -133,12 +133,23 @@ class Products extends \yii\db\ActiveRecord
 //                    ->where(['pt.id_color' => $colors, 'cp.id_category' => $category])
             ->leftJoin('Categories_Products cp', 'p.id_product = cp.id_product')
             ->leftJoin('Products_Template pt', 'p.id_product = pt.id_product');
+            
+            $session = \Yii::$app->session;
+            
+            //if($query_param['colors'] != '') { $colors = explode(",", $query_param['colors']); $query->andWhere(['pt.id_color' => $colors]); }
+            //if($query_param['category'] != '') { $category = explode(",", $query_param['category']); $query->andWhere(['cp.id_category' => $category]); }
+            //if($query_param['sizes'] != '') { $sizes = explode(",", $query_param['sizes']); $query->andWhere(['pt.id_size' => $sizes]); }
 
-            if($query_param['colors'] != '') { $colors = explode(",", $query_param['colors']); $query->andWhere(['pt.id_color' => $colors]); }
-            if($query_param['category'] != '') { $category = explode(",", $query_param['category']); $query->andWhere(['cp.id_category' => $category]); }
-            if($query_param['sizes'] != '') { $sizes = explode(",", $query_param['sizes']); $query->andWhere(['pt.id_size' => $sizes]); }
-                    
+            if($session->get('category') != null) { $category = $session->get('category'); $query->andWhere(['cp.id_category' => $category]); }            
+            
+            $sizes = $session->get('sizes');
+            if($this->arrayIsNull($sizes)) { $query->andWhere(['pt.id_size' => $sizes]); }
+            
+            $colors = $session->get('colors');
+            if($this->arrayIsNull($colors)) { $query->andWhere(['pt.id_color' => $colors]); }
+            
             $command = $query->createCommand();
+            //var_dump($command);
             $filtered_products_tmp = $command->queryAll();             
         
         $products_miniature = $this->getProductsMiniture();
@@ -154,7 +165,7 @@ class Products extends \yii\db\ActiveRecord
                 {
                     if($pm['id_product'] == $fp['id_product'])
                     {
-                        $count = $count + 1;
+                        $count++;
                         //unset($array2[$key]);
                     }
                 }
@@ -194,6 +205,19 @@ class Products extends \yii\db\ActiveRecord
         return $products_miniature;
     }
     
+    public function arrayIsNull($array)
+    {
+        if(is_array($array))
+        {
+            $result = FALSE;
+            foreach ($array as $ar)
+            {
+                if($ar != NULL){ $result = TRUE; }
+            }
+        }
+        return $result;
+    }
+    
     public function builUrl($param_name, $param_value)
     {
         parse_str($_SERVER['QUERY_STRING'], $query_param);        
@@ -205,12 +229,15 @@ class Products extends \yii\db\ActiveRecord
 //            $query_param_array['category'] = array();
 //        }
 //        else { $query_param_array['category'] = explode(",", $query_param['category']); }        
-                
+        $session = \Yii::$app->session;
+        
         $query_param_array['category'] = explode(",", $query_param['category']);
         $query_param_array['colors'] = explode(",", $query_param['colors']);
         $query_param_array['sizes'] = explode(",", $query_param['sizes']);
         $query_param_array['product_main_photo'] = explode(",", $query_param['product_main_photo']);
         $query_param_array['id_product'] = explode(",", $query_param['id_product']);
+        
+        //$query_param_array['category'] = explode(",", $session->get('category'));
                 
         if($param_name == 'back_home')
         {
