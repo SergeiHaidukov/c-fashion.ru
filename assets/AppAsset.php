@@ -18,7 +18,13 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [        
-//        'js/angular-material.min.css',
+//        'js/angular-material.min.css',        
+        'css/style.css',        
+        'css/dark.css',
+        'css/font-icons.css',
+        'css/animate.css',
+        'css/magnific-popup.css',
+        'css/responsive.css',
         'css/site.css',
     ];
     public $js = [
@@ -35,6 +41,8 @@ class AppAsset extends AssetBundle
 //        '//ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular-animate.min.js',
 //        '//ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular-aria.min.js',
 //        'js/angular-material.min.js',
+        'js/plugins.js',
+        'js/functions.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

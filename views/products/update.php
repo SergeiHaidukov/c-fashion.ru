@@ -36,22 +36,42 @@ $this->params['breadcrumbs'][] = 'Update';
     <h3>Изображение товара</h3>
     
     <div class="row">        
-    <?php
-    $files = $model->getImage($model->id_product);    
+    <?php    
     //var_dump($files);
+    
+    $count_miniatures = 0;
+    foreach ($files as $filename)
+    {
+        $count_miniatures++;
+    }
+    
      foreach ($files as $filename)         
      {?>
         
       <div class="col-md-2">
         <div class="thumbnail">
           <img src= <?php echo (yii\helpers\Url::to('@web/img/thumbnail/'.$filename['file_name'], true)); ?>>
-          <div class="caption">
-            <h6><?php if ($filename['is_miniature']== TRUE)
-                    {
-                        echo ('миниатюра') ?></h6>
-              <?php }?>
-            <p><a href=<?php echo (yii\helpers\Url::toRoute(['products/delpicprod', 'id_product'=>$model->id_product, 'id_picture'=> $filename['id_picture']])); ?> class="btn btn-danger btn-xs" role="button">Удалить</a></p>
-            <p><a href=<?php echo (yii\helpers\Url::toRoute(['products/setproductminiature','id_product'=>$model->id_product, 'id_picture_product'=>$filename['id_picture_product']])); ?> class="btn btn-info btn-xs" role="button">Миниатюра</a></p>
+          <div class="caption">            
+            <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group">
+                <?php for($i = 1; $i<=$count_miniatures; $i++){?>
+                    <a href="<?php echo (yii\helpers\Url::toRoute(['products/setproductminiature','id_product'=>$model->id_product, 'id_picture_product'=>$filename['id_picture_product'], 'is_miniature'=>$i])); ?>" 
+                       class="btn 
+                       <?php if ($filename['is_miniature'] == $i)
+                            {
+                                echo ('btn-warning'); ?>
+                      <?php }
+                            else 
+                            {
+                                echo ('btn-default');
+                            }
+                      ?>                                              
+                       btn-xs"><?php echo $i ?></a>
+                <?php } ?>
+                    <a href="<?php echo (yii\helpers\Url::toRoute(['products/setproductminiature','id_product'=>$model->id_product, 'id_picture_product'=>$filename['id_picture_product'], 'is_miniature'=>-1])); ?>" class="btn btn-default btn-xs" role="button"><i class="glyphicon glyphicon-remove"></i></a>
+                </div>
+            </div>
+            <p><a href="<?php echo (yii\helpers\Url::toRoute(['products/delpicprod', 'id_product'=>$model->id_product, 'id_picture'=> $filename['id_picture']])); ?>" class="btn btn-danger btn-xs" role="button">Удалить</a></p>
           </div>
         </div>
       </div>           
@@ -72,7 +92,7 @@ $this->params['breadcrumbs'][] = 'Update';
     </div>
     
     
-    <div ng-controller="CategoriesController">
+    <div ng-controller="CategoriesController">        
         <h3>Категории</h3> 
         <br/>        
         <div class="row">

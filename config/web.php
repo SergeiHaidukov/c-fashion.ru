@@ -48,13 +48,15 @@ $config = [
         'enablePrettyUrl' => true,
         'showScriptName' => false,
         'rules' => [
+                        ['class' => 'yii\rest\UrlRule', 'controller' => ['api/products','api/categories','api/categoriesproducts','api/colors','api/colorsproducts','api/sizes','api/sizesproducts','api/productstemplate'],  'pluralize'=>FALSE],
                         '' => 'site/index',
-                        '/<category_translit_name>'=>'site/index',
+                        'catalog/<category_translit_name>'=>'site/index',
+                        'catalog'=>'site/index',
+                        'dress/<id_product:\d+>'=>'site/productpage',
                         'login' => 'site/login',
                         '<controller:\w+>/<id:\d+>'=>'<controller>/view',
                         '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
-                        '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
-                        ['class' => 'yii\rest\UrlRule', 'controller' => ['api/products','api/categories','api/categoriesproducts','api/colors','api/colorsproducts','api/sizes','api/sizesproducts','api/productstemplate'],  'pluralize'=>false]
+                        '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',                        
                     ],
         ],
     ],

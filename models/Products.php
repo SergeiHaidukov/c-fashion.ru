@@ -22,6 +22,7 @@ class Products extends \yii\db\ActiveRecord
      */
     private $products_filter = array();
     private $products_miniature = array();
+    private $popular_products = array();    
 
     public static function tableName()
     {
@@ -36,12 +37,11 @@ class Products extends \yii\db\ActiveRecord
         return [
             [['name', 'url'], 'required'],
             [['price', 'oldprice'], 'number'],
-            [['isview'], 'integer'],
+            [['isview', 'views_count'], 'integer'],
             [['description'], 'string'],
             [['create_date', 'last_update'], 'safe'],
             [['name'], 'string', 'max' => 50],
-            [['url'], 'string', 'max' => 255],            
-            [['file'], 'file', 'extensions' => ['jpg'], 'maxFiles' => 100]
+            [['url'], 'string', 'max' => 255]
         ];
     }
 
@@ -60,6 +60,7 @@ class Products extends \yii\db\ActiveRecord
             'description' => 'Description',
             'create_date' => 'Create Date',
             'last_update' => 'Last Update',
+            'views_count' => 'Views Count',
         ];
     }
     
@@ -82,16 +83,58 @@ class Products extends \yii\db\ActiveRecord
         {
             $query = (new \yii\db\Query())
                 ->select('*')
-                ->where(['pp.is_miniature' => 1/*, 'p.isview' => 1*/ ])
+                ->where(['>=', 'pp.is_miniature', 1/*, 'p.isview' => 1*/ ])
                 ->from('Products p')
                 ->leftJoin('Pictures_Products pp', 'p.id_product = pp.id_product')
                 ->leftJoin('Pictures p1', 'pp.id_picture = p1.id_picture')
                 ->orderBy('p.id_product DESC');
-            $command = $query->createCommand();
-            $this->products_miniature = $command->queryAll();
+            $command = $query->createCommand();            
+            $products_miniature_tmp = $command->queryAll();
+            
+            
+            $products_miniature = array();
+            $id_product_prev = $products_miniature_tmp[0]['id_product'];
+            $one_product_miniatures = array();
+            
+            foreach ($products_miniature_tmp as $pmt)
+            {                
+                $id_product = $pmt['id_product'];
+                if($id_product == $id_product_prev)
+                {
+                    array_push($one_product_miniatures, $pmt);
+                }
+                else 
+                {
+                    $id_product_prev = $id_product;
+                    array_push($products_miniature, $one_product_miniatures);
+                    $one_product_miniatures = array();
+                    array_push($one_product_miniatures, $pmt);
+                }
+            }
+            //var_dump($products_miniature);
+            $this->products_miniature = $products_miniature;
         }
                 
         return ($this->products_miniature);
+    }
+    
+    public function getPopularProducts()
+    {     
+        if(empty($this->popular_products))
+        {
+            $query = (new \yii\db\Query())
+                ->select('*')
+                ->where(['pp.is_miniature' => 1/*, 'p.isview' => 1*/ ])
+                ->from('Products p')
+                ->leftJoin('Pictures_Products pp', 'p.id_product = pp.id_product')
+                ->leftJoin('Pictures p1', 'pp.id_picture = p1.id_picture')
+                ->orderBy('p.views_count DESC')
+                ->limit('4');
+            $command = $query->createCommand();
+            $this->popular_products = $command->queryAll();            
+        }
+        
+        return ($this->popular_products);
     }
     
     public function getProductsFilter()
@@ -112,7 +155,7 @@ class Products extends \yii\db\ActiveRecord
         return ($images);
     }
     
-    public function getFilteredProducts($query_param) 
+    public function getFilteredProducts() 
     {                
 //        if (empty($this->products_filter))
 //            {
@@ -133,6 +176,9 @@ class Products extends \yii\db\ActiveRecord
 //                    ->where(['pt.id_color' => $colors, 'cp.id_category' => $category])
             ->leftJoin('Categories_Products cp', 'p.id_product = cp.id_product')
             ->leftJoin('Products_Template pt', 'p.id_product = pt.id_product');
+//            ->select('*')
+//            ->from('productwithfilters');
+            
             
             $session = \Yii::$app->session;
             
@@ -163,7 +209,7 @@ class Products extends \yii\db\ActiveRecord
                 $count = 0;
                 foreach($filtered_products_tmp as $fp)
                 {
-                    if($pm['id_product'] == $fp['id_product'])
+                    if($pm[0]['id_product'] == $fp['id_product'])
                     {
                         $count++;
                         //unset($array2[$key]);
@@ -174,7 +220,7 @@ class Products extends \yii\db\ActiveRecord
         }
         else { $products_miniature = array(); }
         
-        
+        //var_dump($products_miniature);
 //        $products_miniature = $this->getProductsMiniture();
 //        
 //        
@@ -329,7 +375,12 @@ class Products extends \yii\db\ActiveRecord
         $clear_array = array();
         
     }
-
+    
+    public function viewsCountUp()
+    {                
+        $this->views_count = $this->views_count + 1;                
+        $this->save();
+    }
 
 //    public function beforeSave($string) 
 //    {

@@ -1,3 +1,57 @@
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Lato Light'), local('Lato-Light'), url('/fonts/Lato-Light.woff') format('woff'), url('/fonts/Lato-Light.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Lato Regular'), local('Lato-Regular'), url('/fonts/Lato-Regular.woff') format('woff'), url('/fonts/Lato-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Lato Bold'), local('Lato-Bold'), url('/fonts/Lato-Bold.woff') format('woff'), url('/fonts/Lato-Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Lato Italic'), local('Lato-Italic'), url('/fonts/Lato-Italic.woff') format('woff'), url('/fonts/Lato-Italic.ttf') format('truetype');   
+}
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Raleway Light'), local('Raleway-Light'), url('/fonts/Raleway-Light.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Raleway'), url('/fonts/Raleway-Light.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Raleway Medium'), local('Raleway-Medium'), url('/fonts/Raleway-Medium.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Raleway SemiBold'), local('Raleway-SemiBold'), url('/fonts/Raleway-SemiBold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Raleway Bold'), local('Raleway-Bold'), url('/fonts/Raleway-Bold.ttf') format('truetype');
+}
 html,
 body {
     height: 100%;
@@ -271,4 +325,8 @@ a.desc:after {
 
 .kupon{
     margin: 0px auto;
+}
+
+.current-sidebar{
+    color: #83AB41 !important ;
 }

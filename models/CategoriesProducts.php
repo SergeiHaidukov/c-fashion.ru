@@ -71,7 +71,7 @@ class CategoriesProducts extends \yii\db\ActiveRecord
 //        $command = $query->createCommand();
 
         $primaryConnection = Yii::$app->db;
-        $command = $primaryConnection->createCommand('SELECT  c.id_category, c.name, c.translit_name FROM Categories c JOIN Categories_Products cp ON c.id_category = cp.id_category GROUP BY c.id_category');
+        $command = $primaryConnection->createCommand('SELECT  c.id_category, c.name, c.translit_name, c.description FROM Categories c JOIN Categories_Products cp ON c.id_category = cp.id_category GROUP BY c.id_category');
         $cat = $command->queryAll();        
         
         return ($cat);

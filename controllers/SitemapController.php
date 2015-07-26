@@ -19,6 +19,7 @@ class SitemapController extends Controller
     public function actionIndex()
     {                
         $products = \app\models\Products::find()->all();
+        $categories = \app\models\Categories::find()->all();
         //var_dump($products);
         
 //        $xml=new DomDocument('1.0','utf-8');
@@ -31,12 +32,20 @@ class SitemapController extends Controller
         //<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
         
         $xml=new DOMDocument('1.0','utf-8');        
-        $urlset = $xml->appendChild(new \DOMElement("urlset"));        
+        $urlset = $xml->appendChild(new \DOMElement("urlset"));
+        foreach ($categories as $cat)
+        {            
+            //$sitemap = simplexml_load_file("sitemap.xml");            
+            $url = $urlset->appendChild(new \DOMElement("url"));
+            $url->appendChild(new \DOMElement("loc","http://c-fashion.ru/catalog/".$cat['translit_name']));
+            $url->appendChild(new \DOMElement("changefreq", "weekly"));
+            $url->appendChild(new \DOMElement("priority", "0.50"));
+        }
         foreach ($products as $prod)
         {            
             //$sitemap = simplexml_load_file("sitemap.xml");            
             $url = $urlset->appendChild(new \DOMElement("url"));
-            $url->appendChild(new \DOMElement("loc","http://c-fashion.ru/site/productpage?id_product=".$prod['id_product']));
+            $url->appendChild(new \DOMElement("loc","http://c-fashion.ru/dress/".$prod['id_product']));
             $url->appendChild(new \DOMElement("changefreq", "weekly"));
             $url->appendChild(new \DOMElement("priority", "0.50"));
         }

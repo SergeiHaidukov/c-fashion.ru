@@ -116,30 +116,57 @@ class ProductsController extends Controller
 //                $im = imagecreatefromjpeg('img/' .$image['file_name']);
 //                imageinterlace($im, true);
 //                imagejpeg($im,'img/' .$image['file_name']);
-                
                 $fileName = $image['file_name'];
-            
-                $mode = \Imagine\Image\ImageInterface::THUMBNAIL_INSET;
-                    
-                    $width_new = 600;
-                    $height_new = 600;
-                    $image_info = getimagesize('img/' .$fileName);
-                    
-                    if($image_info[0] < $width_new) { $width_new = $image_info[0]; $height_new = $image_info[0]; }
-                    if($image_info[1] < $height_new) { $height_new = $image_info[1]; $width_new = $image_info[1]; }
-                    
-                    Image::thumbnail('img/' .$fileName, $width_new, $height_new, $mode)
-                    ->save(Yii::getAlias('@webroot/img/thumbnail/' .$fileName), ['quality' => 90]);
+                
+                if (file_exists('img/' .$fileName)) 
+                {                                                            
 
-                $picturesmodel = new \app\models\Pictures();
-                $picprodmodel = new \app\models\PicturesProducts();
+                    $mode = \Imagine\Image\ImageInterface::THUMBNAIL_INSET;
 
-                $picturesmodel->file_name = $fileName;
-                $picturesmodel->save();
+                        $width_new = 440;
+                        $height_new = 586;
+                        $image_info = getimagesize('img/' .$fileName);
+                        
+                        if($image_info != false)
+                        {
+                            if($image_info[0] < $width_new) { $width_new = $image_info[0]; $height_new = $image_info[0]; }
+                            if($image_info[1] < $height_new) { $height_new = $image_info[1]; $width_new = $image_info[1]; }
+                            Image::thumbnail('img/' .$fileName, $width_new, $height_new, $mode)
+                            ->save(Yii::getAlias('@webroot/img/thumbnail/' .$fileName), ['quality' => 90]);
+                        }
+                        else {
+                            var_dump($fileName);
+                            var_dump($image_info);
+                            var_dump($width_new);
+                            var_dump($height_new);
+                        }                                                                        
 
-                $picprodmodel->id_picture = $picturesmodel->id_picture;
-                $picprodmodel->id_product = $model->id_product;
-                $picprodmodel->save();
+                        $width_new = 100;
+                        $height_new = 75;                        
+                        if($image_info != false)
+                        {
+                            if($image_info[0] < $width_new) { $width_new = $image_info[0]; $height_new = $image_info[0]; }
+                            if($image_info[1] < $height_new) { $height_new = $image_info[1]; $width_new = $image_info[1]; }
+                            Image::thumbnail('@webroot/img/' .$fileName, $width_new, $height_new, $mode)
+                            ->save(Yii::getAlias('@webroot/img/thumbnail/mini/' .$fileName), ['quality' => 90]);
+                        }
+                        else {
+                            var_dump($fileName);
+                            var_dump($image_info);
+                            var_dump($width_new);
+                            var_dump($height_new);
+                        }                                                
+
+                    $picturesmodel = new \app\models\Pictures();
+                    $picprodmodel = new \app\models\PicturesProducts();
+
+                    $picturesmodel->file_name = $fileName;
+                    $picturesmodel->save();
+
+                    $picprodmodel->id_picture = $picturesmodel->id_picture;
+                    $picprodmodel->id_product = $model->id_product;
+                    $picprodmodel->save();
+                }                 
             }
             set_time_limit($default);
             
@@ -172,15 +199,25 @@ class ProductsController extends Controller
                     
                     $mode = \Imagine\Image\ImageInterface::THUMBNAIL_INSET;
                     
-                    $width_new = 600;
-                    $height_new = 600;
+                    $width_new = 440;
+                    $height_new = 586;
                     $image_info = getimagesize('img/' .$fileName);
                     
                     if($image_info[0] < $width_new) { $width_new = $image_info[0]; $height_new = $image_info[0]; }
                     if($image_info[1] < $height_new) { $height_new = $image_info[1]; $width_new = $image_info[1]; }
                     
                     Image::thumbnail('@webroot/img/' .$fileName, $width_new, $height_new, $mode)
-                    ->save(Yii::getAlias('@webroot/img/thumbnail/' .$fileName), ['quality' => 90]);                                        
+                    ->save(Yii::getAlias('@webroot/img/thumbnail/' .$fileName), ['quality' => 90]);                                         
+                    
+                    $width_new = 100;
+                    $height_new = 75;
+                    $image_info = getimagesize('img/' .$fileName);
+                    
+                    if($image_info[0] < $width_new) { $width_new = $image_info[0]; $height_new = $image_info[0]; }
+                    if($image_info[1] < $height_new) { $height_new = $image_info[1]; $width_new = $image_info[1]; }
+                    
+                    Image::thumbnail('@webroot/img/' .$fileName, $width_new, $height_new, $mode)
+                    ->save(Yii::getAlias('@webroot/img/thumbnail/mini/' .$fileName), ['quality' => 90]);
                     
                     $picturesmodel = new \app\models\Pictures();
                     $picprodmodel = new \app\models\PicturesProducts();
@@ -191,17 +228,20 @@ class ProductsController extends Controller
                     $picprodmodel->id_picture = $picturesmodel->id_picture;
                     $picprodmodel->id_product = $model->id_product;
                     $picprodmodel->save();                    
-                    //$i++;
-                    
+                    //$i++;                    
                 }
             }
         }
-        
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['update', 'id' => $model->id_product]);
+        $files = $model->getImage($model->id_product);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {            
+            return $this->redirect('update', [
+                'id' => $model->id_product,
+                'files' => $files,
+                ]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'files' => $files,
             ]);
         }
     }
@@ -260,7 +300,7 @@ class ProductsController extends Controller
         return $this->redirect(['update', 'id' => $model->id_product]);                
     }
     
-    public function actionSetproductminiature($id_product, $id_picture_product)
+    public function actionSetproductminiature($id_product, $id_picture_product, $is_miniature)
     {
         if (!YII::$app->user->can('crudProducts'))
             {
@@ -268,7 +308,7 @@ class ProductsController extends Controller
             }
         try{
             $picture_product = new \app\models\PicturesProducts();
-            $picture_product->setMiniature($id_product, $id_picture_product);
+            $picture_product->setMiniature($id_product, $id_picture_product, $is_miniature);
         } catch (Exception $ex) {
             throw new NotFoundHttpException($ex);
         }  

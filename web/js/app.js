@@ -20,8 +20,8 @@ app.run(function(){
 //    $routeProvider.otherwise({
 //        redirectTo: '/list'
 //    });
-//    //$locationProvider.html5Mode({enabled: true, requireBase: false});
-//    //$locationProvider.html5Mode(true);
+//    $locationProvider.html5Mode({enabled: true, requireBase: false});
+    //$locationProvider.html5Mode(true);
 //    $locationProvider.hashPrefix('!');
 //}]);
 

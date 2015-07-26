@@ -18,7 +18,7 @@ app.factory('CategoriesService'
         var tmp2 = new Array();		// массива
         var param = new Array();
 
-        var get = location.search;	// строка GET запроса
+        var get = location.search;	// строка GET запроса          
         if(get != '') {
                 tmp = (get.substr(1)).split('&');	// разделяем переменные
                 for(var i=0; i < tmp.length; i++) {
@@ -27,11 +27,12 @@ app.factory('CategoriesService'
                 }                
         }
 //-----------------------------------------------------------------------------------------------------------        
-        var id_product = param['id'];//id товара
+        var current_pathname = (location.pathname).split('/');
+        var id_product = current_pathname[3] // param['id'];//id товара
         
-        service.getIdProduct = function(){//возвращает id товара
-            return id_product;
-        }                        
+        service.getIdProduct = function(){//возвращает id товара            
+            return id_product;            
+        }       
 //-----------------------------------------------------------------------------------------------------------                
 //Асинхронные запросы для категорий
         function getAll() {//получает все категории
@@ -66,7 +67,7 @@ app.factory('CategoriesService'
         }
         
         service.setCategoryProduct = function (id_category) {//устанавливает соответсвие категория продукт
-            
+            console.log(id_product);
         $http.post('/api/categoriesproducts',{id_category:id_category, id_product:id_product})
 
             .success(function(data, status, headers, config) {               

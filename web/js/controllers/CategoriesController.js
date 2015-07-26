@@ -2,8 +2,8 @@
 
 app.controller('CategoriesController'
     ,['$scope', '$rootScope', 'CategoriesService',
-    function($scope, $rootScope, CategoriesService){                                
- 
+    function($scope, $rootScope, CategoriesService){
+        
         $rootScope.$on('categories:updated', function(event, data) {
             $scope.categories = CategoriesService.getAll();            
         });

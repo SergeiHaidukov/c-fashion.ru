@@ -51,9 +51,9 @@ class SiteController extends Controller
 
     public function actionIndex($category_translit_name = '')
     {
-        parse_str($_SERVER['QUERY_STRING'], $query_param);
+        //parse_str($_SERVER['QUERY_STRING'], $query_param);
         
-        var_dump($category_from_url);                
+        //var_dump($category_from_url);                
         $session = \Yii::$app->session;
         
         if($category_translit_name != '')
@@ -71,12 +71,14 @@ class SiteController extends Controller
         {
             if($session->get('category_translit_name') != '')
             {
-                return $this->redirect(['/'.$session->get('category_translit_name')]);
+                return $this->redirect(['/catalog/'.$session->get('category_translit_name')]);
             }
         }
         
         $products_model = new \app\models\Products();
-        $products = $products_model->getFilteredProducts($query_param);
+        $products = $products_model->getFilteredProducts();
+        $popular_products = $products_model->getPopularProducts();
+        $last_products = $products_model->getProductsMiniture();
         $categories_model = new \app\models\CategoriesProducts();
         $categories = $categories_model->getCategoriesProducts();
         $current_category_id = $session->get('category');
@@ -92,6 +94,8 @@ class SiteController extends Controller
         return $this->render('index', [
             'products' => $products,
             'products_model' => $products_model,
+            'popular_products' => $popular_products,
+            'last_products' => $last_products,
             'categories' => $categories,
             'sizes' => $sizes,
             'colors' => $colors,
@@ -150,18 +154,26 @@ class SiteController extends Controller
         parse_str($_SERVER['QUERY_STRING'], $query_param);
         $session = \Yii::$app->session;
         
-        $products_model = new \app\models\Products();
-        $model = \app\models\Products::findOne($id_product);        
+        $products_model = new \app\models\Products();        
+        $last_products = $products_model->getProductsMiniture();
+        $model = \app\models\Products::findOne($id_product);
+        $model->viewsCountUp();
         $product_images = $model->getImage($model->id_product);
-        $main_photo_name = explode(",", $query_param['product_main_photo'])[0];
+        //$main_photo_name = explode(",", $query_param['product_main_photo'])[0];
         $products_template_model = new \app\models\ProductsTemplate();
         $products_template_array = $products_template_model->getColorsProduct($id_product);
+        $popular_products = $products_model->getPopularProducts();
         $cat_translit_name = $session->get('category_translit_name');
+        $categories_model = new \app\models\CategoriesProducts();
+        $categories = $categories_model->getCategoriesProducts();
         return $this->render('productpage', [
             'model' => $model,
-            'product_images' => $product_images,
+            'categories' => $categories,
+            'product_images' => $product_images,            
             'products_model' => $products_model,
-            'main_photo_name' => $main_photo_name,
+            'popular_products' => $popular_products,
+            'last_products' => $last_products,
+            //'main_photo_name' => $main_photo_name,
             'products_template_array' => $products_template_array,
             'cat_translit_name' => $cat_translit_name,
         ]);
@@ -212,7 +224,7 @@ class SiteController extends Controller
             }
             else {$session->set('category', $current_category_id_from_url);
                   $session->set($param_name, $param_value);}            
-        return $this->redirect(['index']);
+        return $this->redirect(['/catalog/']);
         }
         
         $count = 0;
@@ -246,7 +258,7 @@ class SiteController extends Controller
         }
         
         $session->set($param_name, $param_array);
-        return $this->redirect(['/'.$session->get('category_translit_name')]);
+        return $this->redirect(['/catalog/'.$session->get('category_translit_name')]);
     }
     
     public function actionGetsessionparam($param_name)
@@ -262,6 +274,6 @@ class SiteController extends Controller
         $session->set('category_translit_name',NULL);
         $session->set('sizes', array());
         $session->set('colors', array());
-        return $this->redirect(['index']);
+        return $this->redirect(['/catalog']);
     }
 }

@@ -46,18 +46,24 @@ class PicturesProducts extends \yii\db\ActiveRecord
         ];
     }
     
-    public function setMiniature($id_product, $id_picture_product) 
+    public function setMiniature($id_product, $id_picture_product, $is_miniature)
     {
         $model = $this->findOne($id_picture_product);
 //        $query = (new \yii\db\Query())
 //                ->update('Pictures_Products pp')
 //                ->set('pp.is_miniature = 0')
 //                ->where('pp.id_product = 1');
+        if($is_miniature != -1)
+        {
+        PicturesProducts::updateAll(['is_miniature'=> '0'], ['is_miniature'=>$is_miniature ,'id_product'=>$id_product]);
         
-        PicturesProducts::updateAll(['is_miniature'=> '0'], ['is_miniature'=>'1' ,'id_product'=>$id_product]);
-        
-        $model->is_miniature = 1;
+        $model->is_miniature = $is_miniature;
         $model->save();
+        }                            
+        else 
+        {
+            PicturesProducts::updateAll(['is_miniature'=> '0'], ['id_product'=>$id_product]);
+        }        
     }
     
     public function getPicturesProduct($id_product) {//получает изображения для товара
